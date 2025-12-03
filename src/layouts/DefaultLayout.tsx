@@ -1,17 +1,20 @@
 import { Outlet, useLoaderData } from "react-router";
-import { Helmet } from "@dr.pogodin/react-helmet";
-import { titleBuilder } from "../lib/util/titleBuilder";
 import '../styles/globals.css';
+import Head from "../components/shared/Head";
+import type { SiteInfo } from "../types/siteInfo";
+
+interface Loader {
+  siteInfo: SiteInfo;
+}
 
 export default function DefaultLayout() {
-  const {siteInfo, siteSeo} = useLoaderData();
+  const {
+    siteInfo
+  } = useLoaderData<Loader>();
 
-  console.log({ siteInfo, siteSeo })
   return (
     <>
-      <Helmet>
-        <title></title>
-      </Helmet>
+      <Head siteTitle={siteInfo.title} seo={siteInfo.seo} favIcon={siteInfo.favicon?.url} />
       <div className="min-h-screen flex flex-col">
         <header className="bg-gray-800 text-white p-4">
           <h1 className="text-2xl">My Application</h1>

@@ -1,8 +1,6 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { createBrowserRouter, RouterProvider } from 'react-router'
-import { ApolloClient, HttpLink, InMemoryCache } from "@apollo/client";
-import { ApolloProvider } from "@apollo/client/react";
 import { HelmetProvider } from '@dr.pogodin/react-helmet';
 import DefaultLayout from './layouts/DefaultLayout';
 import IndexPage from './pages';
@@ -13,14 +11,6 @@ import CostumeItemPage from './pages/costuming/costumeItem';
 import ActingItemPage from './pages/acting/actingItem';
 import ArtItemPage from './pages/art/artItem';
 import { defaultLayoutLoader } from './lib/loaders';
-import { STRAPI_URL } from './constants/strapi';
-
-const client = new ApolloClient({
-  link: new HttpLink({
-    uri: STRAPI_URL + '/graphql',
-  }),
-  cache: new InMemoryCache(),
-});
 
 let router = createBrowserRouter([
   {
@@ -83,9 +73,7 @@ let router = createBrowserRouter([
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <HelmetProvider>
-      <ApolloProvider client={client}>
-        <RouterProvider router={router} />
-      </ApolloProvider>
+      <RouterProvider router={router} />
     </HelmetProvider>
   </StrictMode>,
 );
