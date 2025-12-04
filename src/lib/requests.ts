@@ -84,12 +84,12 @@ export const fetchCostumePage = await fetchApi<CostumePage>({
   return null;
 });
 
-export const fetchCostumeList = await fetchApi<CostumeList>({
+export const fetchCostumeList = async (pageNumber: number = 1) => await fetchApi<CostumeList>({
   endpoint: "costuming",
   query: {
     sort: "publishedAt:desc",
     populate: "*",
-    "pagination[pageSize]": "5",
+    "pagination[pageSize]": String(5 * pageNumber),
   },
 }).then((res) => {
   return res;

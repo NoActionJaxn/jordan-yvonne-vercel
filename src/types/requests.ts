@@ -47,12 +47,12 @@ export interface CostumePage {
   updatedAt: string;
   publishedAt: string;
   seo?: StrapiSeo;
-}
+};
 
 export interface CostumeList {
   data: CostumeItem[];
   meta: StrapiMeta;
-}
+};
 
 export interface CostumeItem {
   id: number;
@@ -65,7 +65,7 @@ export interface CostumeItem {
   updatedAt: string;
   publishedAt: string;
   seo?: StrapiSeo;
-}
+};
 
 export interface ActorPage {
   id: number;
@@ -78,7 +78,7 @@ export interface ActorPage {
   updatedAt: string;
   publishedAt: string;
   seo?: StrapiSeo;
-}
+};
 
 export interface IllustratorPage {
   id: number;
@@ -90,4 +90,4 @@ export interface IllustratorPage {
   updatedAt: string;
   publishedAt: string;
   seo?: StrapiSeo;
-}
+};

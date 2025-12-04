@@ -1,13 +1,13 @@
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo } from "react";
 import { Link, useLoaderData, useSearchParams } from "react-router";
-import { motion } from "motion/react";
 import debounce from "lodash.debounce";
 import Head from "../../components/shared/Head";
 import BlockRendererClient from "../../components/shared/BlockRendererClient";
+import CostumingCard from "../../components/costumes/CostumingCard";
+import MansoryLayout from "../../components/shared/MansoryLayout";
+import { STRAPI_URL } from "../../constants/strapi";
 import type { CostumingPageData } from "../../lib/loaders";
 import type { StrapiSeo } from "../../types/strapi";
-import { STRAPI_URL } from "../../constants/strapi";
-import CostumingCard from "../../components/costumes/CostumingCard";
 
 export default function CostumingPage() {
   const {
@@ -25,8 +25,6 @@ export default function CostumingPage() {
   const pageCount = Number(searchParams.get("pageCount") ?? 1);
   const totalResults = costumeList?.meta.pagination.total ?? 0;
   const resultsPerPage = costumeList?.meta.pagination.pageSize ?? 10;
-
-  console.log({ pageCount, totalResults, resultsPerPage });
 
   const handleScroll = useCallback(() => {
     const scrollPos = window.innerHeight + window.scrollY;
@@ -53,18 +51,14 @@ export default function CostumingPage() {
   }, [debouncedHandleScroll]);
 
   const list = costumeList?.data ?? [];
-  const [left, setLeft] = useState<typeof list>([] as any);
-  const [right, setRight] = useState<typeof list>([] as any);
-
-  useEffect(() => {
-    const l: typeof list = [] as any;
-    const r: typeof list = [] as any;
-    list.forEach((item, idx) => {
-      (idx % 2 === 0 ? l : r).push(item);
-    });
-    setLeft(l);
-    setRight(r);
-  }, [list]);
+  const items = list.map((item) => ({
+    date: item.publishedAt,
+    title: item.title,
+    slug: item.slug,
+    thumb: item.media?.[0]?.url,
+    alt: item.media?.[0]?.alternativeText || item.title,
+    descText: item.description,
+  }));
 
   return (
     <>
@@ -91,54 +85,13 @@ export default function CostumingPage() {
               </div>
             )}
           </aside>
-          <div className="flex gap-10">
-            <div className="flex-1 flex flex-col gap-10">
-              {left.map((item) => {
-                const idx = list.findIndex((i) => i.id === item.id);
-                return (
-                  <motion.div
-                    key={item.id}
-                    initial={{ opacity: 0, y: 8 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.35, ease: "easeOut", delay: 0.08 * idx + 0.05 }}
-                  >
-                    <CostumingCard
-                      date={item.publishedAt}
-                      title={item.title}
-                      slug={item.slug}
-                      thumb={item.media?.[0]?.url}
-                      alt={item.media?.[0]?.alternativeText || item.title}
-                      descText={item.description}
-                    />
-                  </motion.div>
-                );
-              })}
-            </div>
-            <div className="flex-1 flex flex-col gap-10 pt-10">
-              {right.map((item) => {
-                const idx = list.findIndex((i) => i.id === item.id);
-                return (
-                  <motion.div
-                    key={item.id}
-                    initial={{ opacity: 0, y: 8 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.35, ease: "easeOut", delay: 0.08 * idx + 0.05 }}
-                  >
-                    <CostumingCard
-                      date={item.publishedAt}
-                      title={item.title}
-                      slug={item.slug}
-                      thumb={item.media?.[0]?.url}
-                      alt={item.media?.[0]?.alternativeText || item.title}
-                      descText={item.description}
-                    />
-                  </motion.div>
-                );
-              })}
-            </div>
-          </div>
+          <MansoryLayout
+            Component={CostumingCard}
+            data={items}
+            keyExtractor={(it) => it.slug}
+          />
         </div>
       </div>
     </>
-  )
+  );
 }

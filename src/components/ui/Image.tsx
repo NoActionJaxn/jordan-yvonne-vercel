@@ -11,7 +11,7 @@ interface ImageProps {
 
 export default function Image({ src = '', alt = '', width, height, className }: ImageProps) {
   return (
-    <div className={classNames(className, "overflow-hidden")}>
+    <div className={classNames(className, "flex items-center justify-center overflow-hidden")}>
       <img
         src={`${STRAPI_URL}${src}`}
         alt={alt}

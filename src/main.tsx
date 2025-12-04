@@ -7,10 +7,16 @@ import IndexPage from './pages';
 import CostumingPage from './pages/costuming';
 import ActingPage from './pages/acting';
 import ArtPage from './pages/art';
-import CostumeItemPage from './pages/costuming/costumeItem';
+import CostumeItemPage from './pages/costuming/slug';
 import ActingItemPage from './pages/acting/actingItem';
 import ArtItemPage from './pages/art/artItem';
-import { actorPageLoader, costumePageLoader, defaultLayoutLoader, illustratorPageLoader, landingPageLoader } from './lib/loaders';
+import { 
+  actorPageLoader, 
+  costumePageLoader, 
+  defaultLayoutLoader, 
+  illustratorPageLoader, 
+  landingPageLoader 
+} from './lib/loaders';
 
 let router = createBrowserRouter([
   {

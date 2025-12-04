@@ -22,31 +22,39 @@ export default function CostumingCard({
   descText,
 }: CostumingCardProps) {
   return (
-    <Link to={{ pathname: `/costuming/${slug}` }}>
+    <Link
+      to={{ pathname: `/costuming/${slug}` }}
+      className="group block rounded-2xl transition-shadow"
+    >
       {date && (
         <div>
           <span className="block text-sm p-2">{formatDate(date)}</span>
         </div>
       )}
-      <div className="block bg-white rounded-2xl shadow-md">
+      <div className="block bg-white rounded-2xl shadow-md ring-0 ring-amber-200 group-hover:ring-4 group-focus-visible:ring-2 group-active:ring-2">
         <div className="flex flex-col">
-          {thumb && (
+          {thumb ? (
             <Image
               src={thumb}
               alt={alt || title}
-              className="w-full h-auto bg-black rounded-t-2xl"
+              className="aspect-3/4 w-full h-auto bg-black rounded-t-2xl"
             />
+          ) : (
+            <div className="w-full aspect-3/4 bg-gray-200 rounded-t-2xl flex items-center justify-center">
+              <i className="text-6xl fa-solid fa-image text-gray-400"></i>
+            </div>
           )}
           <div className="px-4 pt-3 pb-4">
             <h3 className="text-xl font-serif font-bold capitalize">{title}</h3>
             {descText && (
-              <div className="line-clamp-3">
+              <div className="line-clamp-3 h-16">
                 <BlockRendererClient className="text-sm" content={descText} styless />
               </div>
             )}
           </div>
-          <div className="text-right px-6 pb-4">
-            Read More
+          <div className="text-xs px-4 pb-4 pt-0.5 flex items-center justify-end gap-2">
+            <span>Read More</span>
+            <i className="fa-solid fa-chevron-right mt-0.5"></i>
           </div>
         </div>
       </div>

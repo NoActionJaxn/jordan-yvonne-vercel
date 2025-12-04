@@ -1,3 +1,4 @@
+import type { LoaderFunctionArgs } from "react-router";
 import type { SiteInfo, Socials, Menu, LandingPage, CostumePage, ActorPage, IllustratorPage, CostumeList } from "../types/requests";
 import { fetchLandingPage, fetchMenu, fetchSiteInfo, fetchSocials, fetchCostumePage, fetchActorPage, fetchIllustratorPage, fetchCostumeList } from "./requests";
 
@@ -33,11 +34,14 @@ export interface CostumingPageData {
   costumeList: CostumeList | null;
 };
 
-export const costumePageLoader = async (): Promise<CostumingPageData> => {
+export const costumePageLoader = async ({ request }: LoaderFunctionArgs<any>): Promise<CostumingPageData> => {
+  const url = new URL(request.url);
+  const pageCount = url.searchParams.get("pageCount") ?? "1";
+
   return {
     siteInfo: fetchSiteInfo,
     costumePage: fetchCostumePage,
-    costumeList: fetchCostumeList,
+    costumeList: await fetchCostumeList(Number(pageCount)),
   };
 };
 

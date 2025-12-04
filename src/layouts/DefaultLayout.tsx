@@ -53,7 +53,10 @@ export default function DefaultLayout() {
                         className={
                           classNames(
                             "font-cursive transition-all duration-300 ease-in-out",
-                            notRoot ? "text-5xl" : "text-7xl"
+                            "hover:underline decoration-transparent hover:decoration-amber-400!",
+                            location.pathname.includes(item.url ?? "") ? "underline decoration-black!" : undefined,
+                            notRoot ? "underline-offset-5" : "underline-offset-7",
+                            notRoot ? "text-5xl" : "text-7xl",
                           )}>
                         {item.label}
                       </Link>
@@ -72,7 +75,7 @@ export default function DefaultLayout() {
           </div>
         </header>
         <AnimatePresence mode="wait">
-          <motion.main
+          <motion.div
             key={location.pathname}
             className={classNames("container py-12")}
             initial={{ flexGrow: prevNotRoot ? 1 : 0 }}
@@ -81,7 +84,7 @@ export default function DefaultLayout() {
             transition={{ duration: 0.3, ease: "easeInOut" }}
           >
             <Outlet />
-          </motion.main>
+          </motion.div>
         </AnimatePresence>
         <footer className="container">
           <nav className={classNames("px-4 w-min transition-all ease-in-out duration-300", notRoot ? "ml-auto" : "mx-auto")}>
@@ -102,5 +105,5 @@ export default function DefaultLayout() {
         </footer>
       </div>
     </>
-  )
+  );
 }
