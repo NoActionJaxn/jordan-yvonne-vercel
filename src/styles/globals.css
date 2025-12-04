@@ -5,5 +5,5 @@
   --font-serif: 'Petrona', serif;
   --font-cursive: 'Grand Hotel', cursive;
 
-  --default-font-family: var(--font-serif);
+  --default-font-family: var(--font-sans);
 }

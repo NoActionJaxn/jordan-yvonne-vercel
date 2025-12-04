@@ -10,7 +10,7 @@ import ArtPage from './pages/art';
 import CostumeItemPage from './pages/costuming/costumeItem';
 import ActingItemPage from './pages/acting/actingItem';
 import ArtItemPage from './pages/art/artItem';
-import { defaultLayoutLoader } from './lib/loaders';
+import { actorPageLoader, costumePageLoader, defaultLayoutLoader, illustratorPageLoader, landingPageLoader } from './lib/loaders';
 
 let router = createBrowserRouter([
   {
@@ -20,16 +20,12 @@ let router = createBrowserRouter([
       {
         Component: IndexPage,
         path: '/',
-        loader: async () => {
-          return null
-        },
+        loader: landingPageLoader,
       },
       {
         Component: CostumingPage,
         path: '/costuming',
-        loader: async () => {
-          return null
-        },
+        loader: costumePageLoader,
       },
       {
         Component: CostumeItemPage,
@@ -41,9 +37,7 @@ let router = createBrowserRouter([
       {
         Component: ActingPage,
         path: '/acting',
-        loader: async () => {
-          return null
-        },
+        loader: actorPageLoader,
       },
       {
         Component: ActingItemPage,
@@ -55,9 +49,7 @@ let router = createBrowserRouter([
       {
         Component: ArtPage,
         path: '/art',
-        loader: async () => {
-          return null
-        },
+        loader: illustratorPageLoader,
       },
       {
         Component: ArtItemPage,

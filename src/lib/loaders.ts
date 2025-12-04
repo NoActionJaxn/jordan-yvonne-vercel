@@ -1,9 +1,66 @@
-import { fetchSiteInfo } from "./requests";
+import type { SiteInfo, Socials, Menu, LandingPage, CostumePage, ActorPage, IllustratorPage, CostumeList } from "../types/requests";
+import { fetchLandingPage, fetchMenu, fetchSiteInfo, fetchSocials, fetchCostumePage, fetchActorPage, fetchIllustratorPage, fetchCostumeList } from "./requests";
 
-export const defaultLayoutLoader = async (): Promise<unknown> => {
-  const siteInfo = fetchSiteInfo;
-  
+export interface DefaultLayoutData {
+  siteInfo: SiteInfo | null;
+  menu: Menu | null;
+  socials: Socials | null;
+};
+
+export const defaultLayoutLoader = async (): Promise<DefaultLayoutData> => {
   return {
-    siteInfo
+    siteInfo: fetchSiteInfo,
+    menu: fetchMenu,
+    socials: fetchSocials,
+  };
+};
+
+export interface LandingPageData {
+  siteInfo: SiteInfo | null;
+  landingPage: LandingPage | null;
+};
+
+export const landingPageLoader = async (): Promise<LandingPageData> => {
+  return {
+    siteInfo: fetchSiteInfo,
+    landingPage: fetchLandingPage,
+  };
+};
+
+export interface CostumingPageData {
+  siteInfo: SiteInfo | null;
+  costumePage: CostumePage | null;
+  costumeList: CostumeList | null;
+};
+
+export const costumePageLoader = async (): Promise<CostumingPageData> => {
+  return {
+    siteInfo: fetchSiteInfo,
+    costumePage: fetchCostumePage,
+    costumeList: fetchCostumeList,
+  };
+};
+
+export interface ActorPageData {
+  siteInfo: SiteInfo | null;
+  actorPage: ActorPage | null;
+};
+
+export const actorPageLoader = async (): Promise<ActorPageData> => {
+  return {
+    siteInfo: fetchSiteInfo,
+    actorPage: fetchActorPage,
+  };
+};
+
+export interface IllustratorPageData {
+  siteInfo: SiteInfo | null;
+  illustratorPage: IllustratorPage | null;
+};
+
+export const illustratorPageLoader = async (): Promise<IllustratorPageData> => {
+  return {
+    siteInfo: fetchSiteInfo,
+    illustratorPage: fetchIllustratorPage,
   };
 };

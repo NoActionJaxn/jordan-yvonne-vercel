@@ -11,8 +11,11 @@
   },
   "dependencies": {
     "@dr.pogodin/react-helmet": "^3.0.4",
+    "@strapi/blocks-react-renderer": "^1.0.2",
     "@tailwindcss/vite": "^4.1.17",
-    "motion": "^12.23.24",
+    "classnames": "^2.5.1",
+    "lodash.debounce": "^4.0.8",
+    "motion": "^12.23.25",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
     "react-router": "^7.9.6",
@@ -21,6 +24,7 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.39.1",
+    "@types/lodash.debounce": "^4.0.9",
     "@types/node": "^24.10.1",
     "@types/react": "^19.2.5",
     "@types/react-dom": "^19.2.3",
@@ -30,6 +34,7 @@
     "eslint-plugin-react-hooks": "^7.0.1",
     "eslint-plugin-react-refresh": "^0.4.24",
     "globals": "^16.5.0",
+    "husky": "^9.1.7",
     "prettier": "^3.6.2",
     "typescript": "~5.9.3",
     "typescript-eslint": "^8.46.4",

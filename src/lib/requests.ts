@@ -1,5 +1,15 @@
 import fetchApi from "./strapi";
-import type { SiteInfo } from "../types/siteInfo";
+import type {
+  SiteInfo,
+  Socials,
+  Menu,
+  LandingPage,
+  ActorPage,
+  IllustratorPage,
+  CostumePage,
+  CostumeList
+} from "../types/requests";
+
 
 export const fetchSiteInfo = await fetchApi<SiteInfo>({
   endpoint: "site-info",
@@ -21,3 +31,96 @@ export const fetchSiteInfo = await fetchApi<SiteInfo>({
   console.error("Error fetching site info:", err);
   return null;
 });
+
+export const fetchMenu = await fetchApi<{ menu: Menu }>({
+  endpoint: "site-info",
+  wrappedByKey: "data",
+  query: {
+    populate: "menu.menu_items",
+  },
+}).then((res) => {
+  return res.menu;
+}).catch((err) => {
+  console.error("Error fetching menu:", err);
+  return null;
+});
+
+export const fetchSocials = await fetchApi<{ socials: Socials }>({
+  endpoint: "site-info",
+  wrappedByKey: "data",
+  query: {
+    populate: "socials.menu_items.icon",
+  },
+}).then((res) => {
+  return res.socials;
+}).catch((err) => {
+  console.error("Error fetching menu:", err);
+  return null;
+});
+
+export const fetchLandingPage = await fetchApi<LandingPage>({
+  endpoint: "landing-page",
+  wrappedByKey: "data",
+  query: {
+    populate: "*",
+  },
+}).then((res) => {
+  return res;
+}).catch((err) => {
+  console.error("Error fetching landing page:", err);
+  return null;
+});
+
+export const fetchCostumePage = await fetchApi<CostumePage>({
+  endpoint: "costume-page",
+  wrappedByKey: "data",
+  query: {
+    populate: "*",
+  },
+}).then((res) => {
+  return res;
+}).catch((err) => {
+  console.error("Error fetching costume page:", err);
+  return null;
+});
+
+export const fetchCostumeList = await fetchApi<CostumeList>({
+  endpoint: "costuming",
+  query: {
+    sort: "publishedAt:desc",
+    populate: "*",
+    "pagination[pageSize]": "5",
+  },
+}).then((res) => {
+  return res;
+}).catch((err) => {
+  console.error("Error fetching costume page list:", err);
+  return null;
+});
+
+export const fetchActorPage = await fetchApi<ActorPage>({
+  endpoint: "actor-page",
+  wrappedByKey: "data",
+  query: {
+    populate: "*",
+  },
+}).then((res) => {
+  return res;
+}).catch((err) => {
+  console.error("Error fetching costume page:", err);
+  return null;
+});
+
+export const fetchIllustratorPage = await fetchApi<IllustratorPage>({
+  endpoint: "illustration-page",
+  wrappedByKey: "data",
+  query: {
+    populate: "*",
+  },
+}).then((res) => {
+  return res;
+}).catch((err) => {
+  console.error("Error fetching costume page:", err);
+  return null;
+});
+

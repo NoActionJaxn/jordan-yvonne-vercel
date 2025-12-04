@@ -6,10 +6,10 @@ export interface StrapiSeo {
   metaRobots?: string;
   metaTitle: string;
   metaViewport?: string;
-  metaImage?: StrapiImage;
+  metaImage?: StrapiAsset;
   structuredData?: Record<string, unknown>;
   openGraph?: StrapiOpenGraph;
-}
+};
 
 export interface StrapiOpenGraph {
   id: number;
@@ -17,10 +17,10 @@ export interface StrapiOpenGraph {
   ogTitle: string;
   ogType?: string;
   ogURL?: string;
-  ogImage?: StrapiImage;
-}
+  ogImage?: StrapiAsset;
+};
 
-export interface StrapiImage {
+export interface StrapiAsset {
   id: number;
   documentId: string;
   name: string;
@@ -40,4 +40,26 @@ export interface StrapiImage {
   createdAt: string;
   updatedAt: string;
   publishedAt: string;
-}
+};
+
+export interface StrapiCallToAction {
+  id: number;
+  label?: string;
+  url?: string;
+  icon?: StrapiFontAwesomeIcon;
+};
+
+export interface StrapiFontAwesomeIcon {
+  id: number;
+  pack?: string;
+  name?: string;
+};
+
+export interface StrapiMeta {
+  pagination: {
+    page: number;
+    pageSize: number;
+    pageCount: number;
+    total: number;
+  };
+};
