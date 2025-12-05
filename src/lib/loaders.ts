@@ -1,6 +1,6 @@
 import type { LoaderFunctionArgs } from "react-router";
-import type { SiteInfo, Socials, Menu, LandingPage, CostumePage, ActorPage, IllustratorPage, CostumeList, CostumeItem, IllustrationList, IllustrationItem } from "../types/requests";
-import { fetchLandingPage, fetchMenu, fetchSiteInfo, fetchSocials, fetchCostumePage, fetchActorPage, fetchIllustratorPage, fetchCostumeList, fetchCostumeItem, fetchIllustrationsList, fetchIllustrationItem } from "./requests";
+import type { SiteInfo, Socials, Menu, LandingPage, CostumePage, ActorPage, IllustratorPage, CostumeList, CostumeItem, IllustrationList, IllustrationItem, ActorList, ActorItem } from "../types/requests";
+import { fetchLandingPage, fetchMenu, fetchSiteInfo, fetchSocials, fetchCostumePage, fetchActorPage, fetchIllustratorPage, fetchCostumeList, fetchCostumeItem, fetchIllustrationsList, fetchIllustrationItem, fetchActorList, fetchActorItem } from "./requests";
 
 export interface DefaultLayoutData {
   siteInfo: SiteInfo | null;
@@ -62,14 +62,35 @@ export const costumeItemLoader = async ({ params }: LoaderFunctionArgs<any>): Pr
 export interface ActorPageData {
   siteInfo: SiteInfo | null;
   actorPage: ActorPage | null;
+  actorList: ActorList | null;
 };
 
-export const actorPageLoader = async (): Promise<ActorPageData> => {
+
+export const actorPageLoader = async ({ request }: LoaderFunctionArgs<any>): Promise<ActorPageData> => {
+  const url = new URL(request.url);
+  const pageCount = url.searchParams.get("pageCount") ?? 1;
+
   return {
     siteInfo: fetchSiteInfo,
     actorPage: fetchActorPage,
+    actorList: await fetchActorList(Number(pageCount)),
   };
 };
+
+export interface ActorItemPageData {
+  siteInfo: SiteInfo | null;
+  actorItem: ActorItem | null;
+};
+
+export const actorItemLoader = async ({ params }: LoaderFunctionArgs<any>): Promise<unknown> => {
+  const { slug } = params;
+
+  return {
+    siteInfo: fetchSiteInfo,
+    actorItem: await fetchActorItem(slug ?? ""),
+  };
+};
+
 
 export interface IllustratorPageData {
   siteInfo: SiteInfo | null;

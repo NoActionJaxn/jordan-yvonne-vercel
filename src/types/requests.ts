@@ -80,6 +80,24 @@ export interface ActorPage {
   seo?: StrapiSeo;
 };
 
+export interface ActorList {
+  data: ActorItem[];
+  meta: StrapiMeta;
+};
+
+export interface ActorItem {
+  id: number;
+  documentId: string;
+  title: string
+  slug: string;
+  description?: BlocksContent;
+  media?: StrapiAsset[];
+  createdAt: string;
+  updatedAt: string;
+  publishedAt: string;
+  seo?: StrapiSeo;
+};
+
 export interface IllustratorPage {
   id: number;
   documentId: string;

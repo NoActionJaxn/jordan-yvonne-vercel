@@ -1,4 +1,4 @@
-import { StrictMode } from 'react'
+import { act, StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { createBrowserRouter, RouterProvider } from 'react-router'
 import { HelmetProvider } from '@dr.pogodin/react-helmet';
@@ -17,7 +17,8 @@ import {
   defaultLayoutLoader,
   illustratorPageLoader,
   illustrationItemLoader,
-  landingPageLoader
+  landingPageLoader,
+  actorItemLoader
 } from './lib/loaders';
 
 let router = createBrowserRouter([
@@ -48,9 +49,7 @@ let router = createBrowserRouter([
       {
         Component: ActingItemPage,
         path: '/acting/:slug',
-        loader: async () => {
-          return null
-        },
+        loader: actorItemLoader,
       },
       {
         Component: ArtPage,

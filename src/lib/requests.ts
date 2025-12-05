@@ -8,7 +8,9 @@ import type {
   IllustratorPage,
   CostumePage,
   CostumeList,
-  IllustrationList
+  IllustrationList,
+  ActorItem,
+  ActorList
 } from "../types/requests";
 
 
@@ -122,6 +124,33 @@ export const fetchActorPage = await fetchApi<ActorPage>({
   return res;
 }).catch((err) => {
   console.error("Error fetching costume page:", err);
+  return null;
+});
+
+export const fetchActorList = async (pageNumber: number = 1) => await fetchApi<ActorList>({
+  endpoint: "reels",
+  query: {
+    sort: "publishedAt:desc",
+    populate: "*",
+    "pagination[pageSize]": String(4 * pageNumber),
+  },
+}).then((res) => {
+  return res;
+}).catch((err) => {
+  console.error("Error fetching costume page list:", err);
+  return null;
+});
+
+export const fetchActorItem = async (slug: string) => await fetchApi<ActorList>({
+  endpoint: "reels",
+  query: {
+    filters: { slug: { $eq: slug } },
+    populate: "*",
+  },
+}).then((res) => {
+  return res.data[0] ?? null;
+}).catch((err) => {
+  console.error("Error fetching costumer:", err);
   return null;
 });
 

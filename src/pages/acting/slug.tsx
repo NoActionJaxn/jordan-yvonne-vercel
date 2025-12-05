@@ -1,8 +1,42 @@
-export default function ActingItemPage() {
+import { useLoaderData } from "react-router";
+import Head from "../../components/shared/Head";
+import BlockRendererClient from "../../components/shared/BlockRendererClient";
+import type { StrapiSeo } from "../../types/strapi";
+import type { ActorItemPageData } from "../../lib/loaders";
+import { Heading } from "../../components/ui/Typeography";
+import MediaGallery from "../../components/ui/MediaGallery";
+
+export default function ActorItemPage() {
+  const { siteInfo, actorItem } = useLoaderData<ActorItemPageData>();
+
+  const mergedSeo = {
+    ...siteInfo?.seo,
+    ...actorItem?.seo,
+  } as StrapiSeo;
+
+  const mediaItems = (actorItem?.media ?? []).map(item => ({
+    url: item.url,
+    mime: item.mime,
+    alt: item.alternativeText,
+    poster: item.previewUrl,
+  }));
+
   return (
-    <div>
-      <h2>Welcome to the Index Page</h2>
-      <p>This is the main landing page of the application.</p>
-    </div>
-  )
+    <>
+      <Head siteTitle={siteInfo?.title} pageTitle={actorItem?.title} seo={mergedSeo} />
+      <main className="px-15 py-10 space-y-10">
+        {actorItem?.title && (
+          <div className="text-center">
+            <Heading>{actorItem.title}</Heading>
+          </div>
+        )}
+        {actorItem?.description && (
+          <BlockRendererClient content={actorItem.description} />
+        )}
+        {actorItem?.media && actorItem.media.length > 0 && (
+          <MediaGallery items={mediaItems} />
+        )}
+      </main>
+    </>
+  );
 }
