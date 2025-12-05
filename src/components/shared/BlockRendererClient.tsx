@@ -4,6 +4,7 @@ import {
 } from "@strapi/blocks-react-renderer";
 import classNames from "classnames";
 import { Link } from "react-router";
+import { Heading, Paragraph } from "../ui/Typeography";
 
 
 export interface BlockRendererClientProps {
@@ -25,18 +26,20 @@ export default function BlockRendererClient({
         content={content}
         blocks={styless ? {} : ({
           heading: ({ children, level }) => {
-            const common = "font-serif tracking-tight font-bold";
 
             switch (level) {
               case 1:
-                return <h1 className={classNames(common, "text-4xl md:text-5xl")}>{children}</h1>;
+                return <Heading level={1}>{children}</Heading>;
               case 2:
-                return <h2 className={classNames(common, "text-3xl md:text-4xl")}>{children}</h2>;
+                return <Heading level={2}>{children}</Heading>;
               case 3:
-                return <h3 className={classNames(common, "text-2xl md:text-3xl")}>{children}</h3>;
+                return <Heading level={3}>{children}</Heading>;
               default:
-                return <h4 className={classNames(common, "text-xl md:text-2xl")}>{children}</h4>;
+                return <Heading level={4}>{children}</Heading>;
             }
+          },
+          paragraph: ({ children }) => {
+            return <Paragraph>{children}</Paragraph>;
           },
           list: ({ children, format }) => {
             if (format === "ordered") {

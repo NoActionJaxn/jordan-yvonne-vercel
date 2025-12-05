@@ -7,6 +7,7 @@ import DownloadButton from "../../components/shared/DownloadButton";
 import useSetPageCountParam from "../../hooks/useSetPageCountParam";
 import type { CostumingPageData } from "../../lib/loaders";
 import type { StrapiSeo } from "../../types/strapi";
+import { Heading } from "../../components/ui/Typeography";
 
 export default function CostumingPage() {
   const {
@@ -44,7 +45,7 @@ export default function CostumingPage() {
             <div className="col-span-3 md:col-span-2 lg:col-span-3 space-y-5">
               {costumePage?.title && (
                 <div>
-                  <h1 className="text-6xl font-cursive font-bold">{costumePage.title}</h1>
+                  <Heading>{costumePage.title}</Heading>
                 </div>
               )}
               {costumePage?.description && (
