@@ -1,7 +1,7 @@
 import { useLoaderData } from "react-router";
 import Head from "../../components/shared/Head";
 import BlockRendererClient from "../../components/shared/BlockRendererClient";
-import { Heading } from "../../components/common/Typeography";
+import { Heading } from "../../components/ui/Typeography";
 import MansoryLayout from "../../components/shared/MansoryLayout";
 import ActingCard from "../../components/acting/ActingCard";
 import DownloadButton from "../../components/shared/DownloadButton";

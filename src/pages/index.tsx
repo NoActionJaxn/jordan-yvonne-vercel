@@ -1,6 +1,6 @@
 import { useLoaderData } from "react-router";
 import Head from "../components/shared/Head";
-import type { LandingPageData } from "../lib/loaders";
+import type { LandingPageData } from "../types/loaders";
 import BlockRendererClient from "../components/shared/BlockRendererClient";
 import type { StrapiSeo } from "../types/strapi";
 

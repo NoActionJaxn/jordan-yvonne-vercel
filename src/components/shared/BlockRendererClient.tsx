@@ -3,7 +3,7 @@ import {
   type BlocksContent,
 } from "@strapi/blocks-react-renderer";
 import { Link } from "react-router";
-import { Heading, Paragraph } from "../common/Typeography";
+import { Heading, Paragraph } from "../ui/Typeography";
 
 
 export interface BlockRendererClientProps {

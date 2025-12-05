@@ -2,10 +2,10 @@ import { useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { Link, useLocation } from "react-router";
 import classNames from "classnames";
-import Image from "../common/Image";
+import Image from "../ui/Image";
 import type { StrapiCallToAction } from "../../types/strapi";
 import MenuButton from "./MenuButton";
-import { Heading } from "../common/Typeography";
+import { Heading } from "../ui/Typeography";
 
 export interface PageHeaderProps {
   logo?: string;

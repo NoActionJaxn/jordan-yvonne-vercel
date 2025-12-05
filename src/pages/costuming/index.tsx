@@ -5,7 +5,7 @@ import CostumingCard from "../../components/costumes/CostumingCard";
 import MansoryLayout from "../../components/shared/MansoryLayout";
 import DownloadButton from "../../components/shared/DownloadButton";
 import useSetPageCountParam from "../../hooks/useSetPageCountParam";
-import { Heading } from "../../components/common/Typeography";
+import { Heading } from "../../components/ui/Typeography";
 import type { CostumingPageData } from "../../types/loaders";
 import type { StrapiSeo } from "../../types/strapi";
 

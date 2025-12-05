@@ -10,8 +10,7 @@ import ArtPage from './pages/art';
 import CostumeItemPage from './pages/costuming/slug';
 import ActingItemPage from './pages/acting/slug';
 import ArtItemPage from './pages/art/slug';
-import Error from './components/common/Error';
-
+import Error from './components/ui/Error';
 import {
   actorPageLoader,
   costumeItemLoader,
