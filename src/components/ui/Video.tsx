@@ -1,5 +1,6 @@
 import classNames from "classnames";
 import { STRAPI_URL } from "../../constants/strapi";
+import { isProd } from "../../lib/util/isProd";
 
 interface VideoProps extends React.HTMLAttributes<HTMLVideoElement> {
   src?: string;
@@ -14,7 +15,7 @@ export default function Video({ src = '', poster = '', className, controls = tru
     <div className={classNames(className, "flex items-center justify-center overflow-hidden")}>
       <video
         src={src}
-        poster={poster && `${STRAPI_URL}${poster}`}
+        poster={poster && (!isProd() ? `${STRAPI_URL}${poster}` : poster)}
         className="w-full h-auto object-cover"
         controls={controls}
         preload={preload}

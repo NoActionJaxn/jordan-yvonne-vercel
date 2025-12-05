@@ -1,5 +1,6 @@
 import classNames from "classnames";
 import { STRAPI_URL } from "../../constants/strapi";
+import { isProd } from "../../lib/util/isProd";
 
 interface ImageProps extends React.HTMLAttributes<HTMLImageElement> {
   src?: string;
@@ -14,7 +15,7 @@ export default function Image({ src = '', alt = '', className, loading = "lazy",
   return (
     <div className={classNames(className, "flex items-center justify-center overflow-hidden")}>
       <img
-        src={`${STRAPI_URL}${src}`}
+        src={!isProd() ? `${STRAPI_URL}${src}` : src}
         alt={alt}
         className="w-full h-auto object-cover"
         loading={loading}

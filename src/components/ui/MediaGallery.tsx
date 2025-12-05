@@ -5,6 +5,7 @@ import Video from "./Video";
 import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import useOutsideClick from "../../hooks/useOutsideClick";
+import { isProd } from "../../lib/util/isProd";
 
 export interface MediaItem {
   url: string;
@@ -104,7 +105,7 @@ export default function MediaGallery({ items, className, columns }: MediaGallery
               ) : (
                 <div className="relative">
                   <Video
-                    src={`${STRAPI_URL}${item.url}`}
+                    src={!isProd() ? `${STRAPI_URL}${item.url}` : item.url}
                     preload="none"
                     className="w-full h-full object-cover"
                     controls={false}
@@ -150,7 +151,7 @@ export default function MediaGallery({ items, className, columns }: MediaGallery
               )}
               {activeItem.mime.startsWith("video/") && (
                 <Video
-                  src={`${STRAPI_URL}${activeItem.url}`}
+                  src={!isProd() ? `${STRAPI_URL}${activeItem.url}` : activeItem.url}
                   poster={activeItem.poster}
                   controls
                   preload="metadata"

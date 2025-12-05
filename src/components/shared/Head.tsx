@@ -2,6 +2,7 @@ import { Helmet } from "@dr.pogodin/react-helmet";
 import { titleBuilder } from "../../lib/titleBuilder";
 import type { StrapiSeo } from "../../types/strapi";
 import { STRAPI_URL } from "../../constants/strapi";
+import { isProd } from "../../lib/util/isProd";
 
 export interface HeadProps {
   siteTitle?: string;
@@ -18,9 +19,9 @@ export default function Head({ siteTitle, pageTitle, children, favIcon, seo }: H
 
       {favIcon && (
         <>
-          <link rel="icon" type="image/svg+xml" href={`${STRAPI_URL}${favIcon}`} />
-          <link rel="shortcut icon" href={`${STRAPI_URL}${favIcon}`} />
-          <link rel="apple-touch-icon" href={`${STRAPI_URL}${favIcon}`} />
+          <link rel="icon" type="image/svg+xml" href={!isProd() ? `${STRAPI_URL}${favIcon}` : favIcon} />
+          <link rel="shortcut icon" href={!isProd() ? `${STRAPI_URL}${favIcon}` : favIcon} />
+          <link rel="apple-touch-icon" href={!isProd() ? `${STRAPI_URL}${favIcon}` : favIcon} />
         </>
       )}
 
@@ -43,7 +44,7 @@ export default function Head({ siteTitle, pageTitle, children, favIcon, seo }: H
         <meta name="viewport" content={seo.metaViewport} />
       )}
       {seo?.metaImage && (
-        <meta name="image" content={`${STRAPI_URL}${seo.metaImage.url}`} />
+        <meta name="image" content={!isProd() ? `${STRAPI_URL}${seo.metaImage.url}` : seo.metaImage.url} />
       )}
 
       {seo?.openGraph && (
@@ -61,7 +62,7 @@ export default function Head({ siteTitle, pageTitle, children, favIcon, seo }: H
             <meta property="og:url" content={seo.openGraph.ogURL} />
           )}
           {seo.openGraph.ogImage && (
-            <meta property="og:image" content={`${STRAPI_URL}${seo.openGraph.ogImage.url}`} />
+            <meta property="og:image" content={!isProd() ? `${STRAPI_URL}${seo.openGraph.ogImage.url}` : seo.openGraph.ogImage.url} />
           )}
         </>
       )}
