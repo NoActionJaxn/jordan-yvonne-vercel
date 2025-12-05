@@ -86,8 +86,27 @@ export interface IllustratorPage {
   page_title: string;
   title: string;
   description?: BlocksContent;
+  images?: StrapiAsset[];
   createdAt: string;
   updatedAt: string;
   publishedAt: string;
   seo?: StrapiSeo;
+};
+
+export interface IllustrationItem {
+  id: number;
+  documentId: string;
+  title: string;
+  slug: string;
+  description?: BlocksContent;
+  images?: StrapiAsset[];
+  createdAt: string;
+  updatedAt: string;
+  publishedAt: string;
+  seo?: StrapiSeo;
+};
+
+export interface IllustrationList {
+  data: IllustrationItem[];
+  meta: StrapiMeta;
 };

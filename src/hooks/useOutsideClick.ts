@@ -11,7 +11,7 @@ export type OutsideClickHandler = (event: MouseEvent | TouchEvent) => void;
  * useOutsideClick(ref, () => setOpen(false));
  */
 export default function useOutsideClick<T extends HTMLElement>(
-  ref: React.RefObject<T>,
+  ref: React.RefObject<T | null>,
   handler: OutsideClickHandler,
   enabled: boolean = true
 ) {

@@ -1,6 +1,6 @@
 import type { LoaderFunctionArgs } from "react-router";
-import type { SiteInfo, Socials, Menu, LandingPage, CostumePage, ActorPage, IllustratorPage, CostumeList, CostumeItem } from "../types/requests";
-import { fetchLandingPage, fetchMenu, fetchSiteInfo, fetchSocials, fetchCostumePage, fetchActorPage, fetchIllustratorPage, fetchCostumeList, fetchCostumeItem } from "./requests";
+import type { SiteInfo, Socials, Menu, LandingPage, CostumePage, ActorPage, IllustratorPage, CostumeList, CostumeItem, IllustrationList, IllustrationItem } from "../types/requests";
+import { fetchLandingPage, fetchMenu, fetchSiteInfo, fetchSocials, fetchCostumePage, fetchActorPage, fetchIllustratorPage, fetchCostumeList, fetchCostumeItem, fetchIllustrationsList, fetchIllustrationItem } from "./requests";
 
 export interface DefaultLayoutData {
   siteInfo: SiteInfo | null;
@@ -74,11 +74,30 @@ export const actorPageLoader = async (): Promise<ActorPageData> => {
 export interface IllustratorPageData {
   siteInfo: SiteInfo | null;
   illustratorPage: IllustratorPage | null;
+  illustrationsList?: IllustrationList | null;
 };
 
-export const illustratorPageLoader = async (): Promise<IllustratorPageData> => {
+export interface IllustrationItemPageData {
+  siteInfo: SiteInfo | null;
+  illustrationItem: IllustrationItem | null;
+};
+
+export const illustrationItemLoader = async ({ params }: LoaderFunctionArgs<any>): Promise<unknown> => {
+  const { slug } = params;
+
+  return {
+    siteInfo: fetchSiteInfo,
+    illustrationItem: await fetchIllustrationItem(slug ?? ""),
+  };
+};
+
+export const illustratorPageLoader = async ({ request }: LoaderFunctionArgs<any>): Promise<IllustratorPageData> => {
+  const url = new URL(request.url);
+  const pageCount = url.searchParams.get("pageCount") ?? 1;
+
   return {
     siteInfo: fetchSiteInfo,
     illustratorPage: fetchIllustratorPage,
+    illustrationsList: await fetchIllustrationsList(Number(pageCount)),
   };
 };

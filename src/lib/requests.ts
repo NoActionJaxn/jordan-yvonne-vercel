@@ -7,7 +7,8 @@ import type {
   ActorPage,
   IllustratorPage,
   CostumePage,
-  CostumeList
+  CostumeList,
+  IllustrationList
 } from "../types/requests";
 
 
@@ -89,7 +90,7 @@ export const fetchCostumeList = async (pageNumber: number = 1) => await fetchApi
   query: {
     sort: "publishedAt:desc",
     populate: "*",
-    "pagination[pageSize]": String(5 * pageNumber),
+    "pagination[pageSize]": String(4 * pageNumber),
   },
 }).then((res) => {
   return res;
@@ -134,6 +135,33 @@ export const fetchIllustratorPage = await fetchApi<IllustratorPage>({
   return res;
 }).catch((err) => {
   console.error("Error fetching costume page:", err);
+  return null;
+});
+
+export const fetchIllustrationsList = async (pageNumber: number = 1) => await fetchApi<IllustrationList>({
+  endpoint: "illustrations",
+  query: {
+    sort: "publishedAt:desc",
+    populate: "*",
+    "pagination[pageSize]": String(4 * pageNumber),
+  },
+}).then((res) => {
+  return res;
+}).catch((err) => {
+  console.error("Error fetching illustrations list:", err);
+  return null;
+});
+
+export const fetchIllustrationItem = async (slug: string) => await fetchApi<IllustrationList>({
+  endpoint: "illustrations",
+  query: {
+    filters: { slug: { $eq: slug } },
+    populate: "*",
+  },
+}).then((res) => {
+  return res.data[0] ?? null;
+}).catch((err) => {
+  console.error("Error fetching illustration:", err);
   return null;
 });
 

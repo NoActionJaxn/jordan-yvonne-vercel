@@ -2,24 +2,19 @@ import { useLoaderData } from "react-router";
 import Head from "../../components/shared/Head";
 import BlockRendererClient from "../../components/shared/BlockRendererClient";
 import type { StrapiSeo } from "../../types/strapi";
-import type { CostumeItemPageData } from "../../lib/loaders";
+import type { IllustrationItemPageData } from "../../lib/loaders";
 import { Heading } from "../../components/ui/Typeography";
 import MediaGallery from "../../components/ui/MediaGallery";
 
-export default function CostumeItemPage() {
-  const {
-    siteInfo,
-    costumeItem,
-  } = useLoaderData<CostumeItemPageData>();
+export default function ArtItemPage() {
+  const { siteInfo, illustrationItem } = useLoaderData<IllustrationItemPageData>();
 
   const mergedSeo = {
     ...siteInfo?.seo,
-    ...costumeItem?.seo,
+    ...illustrationItem?.seo,
   } as StrapiSeo;
 
-  console.log({ costumeItem });
-
-  const mediaItems = (costumeItem?.media ?? []).map(item => ({
+  const mediaItems = (illustrationItem?.images ?? []).map(item => ({
     url: item.url,
     mime: item.mime,
     alt: item.alternativeText,
@@ -28,20 +23,20 @@ export default function CostumeItemPage() {
 
   return (
     <>
-      <Head siteTitle={siteInfo?.title} pageTitle={costumeItem?.title} seo={mergedSeo} />
+      <Head siteTitle={siteInfo?.title} pageTitle={illustrationItem?.title} seo={mergedSeo} />
       <main className="px-15 py-10 space-y-10">
-        {costumeItem?.title && (
+        {illustrationItem?.title && (
           <div className="text-center">
-            <Heading>{costumeItem.title}</Heading>
+            <Heading>{illustrationItem.title}</Heading>
           </div>
         )}
-        {costumeItem?.description && (
-          <BlockRendererClient content={costumeItem.description} />
+        {illustrationItem?.description && (
+          <BlockRendererClient content={illustrationItem.description} />
         )}
-        {costumeItem?.media && costumeItem.media.length > 0 && (
+        {illustrationItem?.images && illustrationItem.images.length > 0 && (
           <MediaGallery items={mediaItems} />
         )}
       </main>
     </>
-  )
+  );
 }

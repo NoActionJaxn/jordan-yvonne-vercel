@@ -8,14 +8,15 @@ import CostumingPage from './pages/costuming';
 import ActingPage from './pages/acting';
 import ArtPage from './pages/art';
 import CostumeItemPage from './pages/costuming/slug';
-import ActingItemPage from './pages/acting/actingItem';
-import ArtItemPage from './pages/art/artItem';
+import ActingItemPage from './pages/acting/slug';
+import ArtItemPage from './pages/art/slug';
 import {
   actorPageLoader,
   costumeItemLoader,
   costumePageLoader,
   defaultLayoutLoader,
   illustratorPageLoader,
+  illustrationItemLoader,
   landingPageLoader
 } from './lib/loaders';
 
@@ -59,9 +60,7 @@ let router = createBrowserRouter([
       {
         Component: ArtItemPage,
         path: '/art/:slug',
-        loader: async () => {
-          return null
-        },
+        loader: illustrationItemLoader,
       },
     ]
   }

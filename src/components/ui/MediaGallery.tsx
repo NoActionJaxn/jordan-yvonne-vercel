@@ -2,8 +2,9 @@ import classNames from "classnames";
 import Image from "../ui/Image";
 import { STRAPI_URL } from "../../constants/strapi";
 import Video from "./Video";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
+import useOutsideClick from "../../hooks/useOutsideClick";
 
 export interface MediaItem {
   url: string;
@@ -49,16 +50,21 @@ export default function MediaGallery({ items, className, columns }: MediaGallery
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
   }, []);
+  
   const baseCols = colClass(columns?.base ?? 1);
   const smCols = columns?.sm ? `sm:${colClass(columns.sm)}` : "";
   const mdCols = columns?.md ? `md:${colClass(columns.md)}` : "md:grid-cols-2"; // sensible default
   const lgCols = columns?.lg ? `lg:${colClass(columns.lg)}` : "lg:grid-cols-3";
   const xlCols = columns?.xl ? `xl:${colClass(columns.xl)}` : "xl:grid-cols-4";
 
+  // Lightbox content ref to enable outside-click dismissal
+  const contentRef = useRef<HTMLDivElement>(null);
+  useOutsideClick(contentRef, () => setActiveIndex(null), Boolean(activeItem));
+
   return (
     <div
       className={classNames(
-        "grid gap-4",
+        "grid gap-10 px-10 py-15",
         baseCols,
         smCols,
         mdCols,
@@ -127,6 +133,7 @@ export default function MediaGallery({ items, className, columns }: MediaGallery
             onClick={() => setActiveIndex(null)}
           >
             <motion.div
+              ref={contentRef}
               initial={{ scale: 0.98 }}
               animate={{ scale: 1 }}
               exit={{ scale: 0.98 }}

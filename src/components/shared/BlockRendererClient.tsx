@@ -2,7 +2,6 @@ import {
   BlocksRenderer,
   type BlocksContent,
 } from "@strapi/blocks-react-renderer";
-import classNames from "classnames";
 import { Link } from "react-router";
 import { Heading, Paragraph } from "../ui/Typeography";
 
