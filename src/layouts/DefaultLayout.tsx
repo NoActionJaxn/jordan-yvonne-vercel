@@ -3,10 +3,10 @@ import { useEffect, useRef } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import classNames from "classnames";
 import Head from "../components/shared/Head";
-import '../styles/globals.css';
-import type { DefaultLayoutData } from "../lib/loaders";
 import PageHeader from "../components/shared/PageHeader";
 import PageFooter from "../components/shared/PageFooter";
+import '../styles/globals.css';
+import type { DefaultLayoutData } from "../types/loaders";
 
 export default function DefaultLayout() {
   const location = useLocation();

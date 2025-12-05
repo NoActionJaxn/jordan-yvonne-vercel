@@ -1,12 +1,6 @@
 import type { LoaderFunctionArgs } from "react-router";
-import type { SiteInfo, Socials, Menu, LandingPage, CostumePage, ActorPage, IllustratorPage, CostumeList, CostumeItem, IllustrationList, IllustrationItem, ActorList, ActorItem } from "../types/requests";
 import { fetchLandingPage, fetchMenu, fetchSiteInfo, fetchSocials, fetchCostumePage, fetchActorPage, fetchIllustratorPage, fetchCostumeList, fetchCostumeItem, fetchIllustrationsList, fetchIllustrationItem, fetchActorList, fetchActorItem } from "./requests";
-
-export interface DefaultLayoutData {
-  siteInfo: SiteInfo | null;
-  menu: Menu | null;
-  socials: Socials | null;
-};
+import type { DefaultLayoutData, LandingPageData, CostumingPageData, ActorPageData, IllustratorPageData } from "../types/loaders";
 
 export const defaultLayoutLoader = async (): Promise<DefaultLayoutData> => {
   return {
@@ -16,22 +10,11 @@ export const defaultLayoutLoader = async (): Promise<DefaultLayoutData> => {
   };
 };
 
-export interface LandingPageData {
-  siteInfo: SiteInfo | null;
-  landingPage: LandingPage | null;
-};
-
 export const landingPageLoader = async (): Promise<LandingPageData> => {
   return {
     siteInfo: fetchSiteInfo,
     landingPage: fetchLandingPage,
   };
-};
-
-export interface CostumingPageData {
-  siteInfo: SiteInfo | null;
-  costumePage: CostumePage | null;
-  costumeList: CostumeList | null;
 };
 
 export const costumePageLoader = async ({ request }: LoaderFunctionArgs<any>): Promise<CostumingPageData> => {
@@ -45,11 +28,6 @@ export const costumePageLoader = async ({ request }: LoaderFunctionArgs<any>): P
   };
 };
 
-export interface CostumeItemPageData {
-  siteInfo: SiteInfo | null;
-  costumeItem: CostumeItem | null;
-};
-
 export const costumeItemLoader = async ({ params }: LoaderFunctionArgs<any>): Promise<unknown> => {
   const { slug } = params;
 
@@ -58,13 +36,6 @@ export const costumeItemLoader = async ({ params }: LoaderFunctionArgs<any>): Pr
     costumeItem: await fetchCostumeItem(slug ?? ""),
   };
 };
-
-export interface ActorPageData {
-  siteInfo: SiteInfo | null;
-  actorPage: ActorPage | null;
-  actorList: ActorList | null;
-};
-
 
 export const actorPageLoader = async ({ request }: LoaderFunctionArgs<any>): Promise<ActorPageData> => {
   const url = new URL(request.url);
@@ -77,10 +48,7 @@ export const actorPageLoader = async ({ request }: LoaderFunctionArgs<any>): Pro
   };
 };
 
-export interface ActorItemPageData {
-  siteInfo: SiteInfo | null;
-  actorItem: ActorItem | null;
-};
+
 
 export const actorItemLoader = async ({ params }: LoaderFunctionArgs<any>): Promise<unknown> => {
   const { slug } = params;
@@ -89,18 +57,6 @@ export const actorItemLoader = async ({ params }: LoaderFunctionArgs<any>): Prom
     siteInfo: fetchSiteInfo,
     actorItem: await fetchActorItem(slug ?? ""),
   };
-};
-
-
-export interface IllustratorPageData {
-  siteInfo: SiteInfo | null;
-  illustratorPage: IllustratorPage | null;
-  illustrationsList?: IllustrationList | null;
-};
-
-export interface IllustrationItemPageData {
-  siteInfo: SiteInfo | null;
-  illustrationItem: IllustrationItem | null;
 };
 
 export const illustrationItemLoader = async ({ params }: LoaderFunctionArgs<any>): Promise<unknown> => {

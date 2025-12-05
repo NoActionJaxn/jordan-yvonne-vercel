@@ -1,6 +1,6 @@
 import classNames from "classnames";
 import { STRAPI_URL } from "../../constants/strapi";
-import { LinkButton, type LinkButtonProps } from "../ui/Buttons";
+import { LinkButton, type LinkButtonProps } from "../common/Buttons";
 
 export interface DownloadButtonProps extends Omit<LinkButtonProps, "to" | "download"> {
   fileUrl?: string;

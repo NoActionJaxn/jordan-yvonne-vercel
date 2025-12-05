@@ -1,13 +1,12 @@
-import { useLoaderData } from "react-router";
+import { useLoaderData, useRevalidator } from "react-router";
 import Head from "../../components/shared/Head";
 import BlockRendererClient from "../../components/shared/BlockRendererClient";
-import type { IllustratorPageData } from "../../lib/loaders";
-import type { StrapiSeo } from "../../types/strapi";
-import { Heading } from "../../components/ui/Typeography";
+import { Heading } from "../../components/common/Typeography";
 import MansoryLayout from "../../components/shared/MansoryLayout";
 import ArtCard from "../../components/art/ArtCard";
 import useSetPageCountParam from "../../hooks/useSetPageCountParam";
-import { useRevalidator } from "react-router";
+import type { IllustratorPageData } from "../../types/loaders";
+import type { StrapiSeo } from "../../types/strapi";
 
 export default function ArtPage() {
   const { siteInfo, illustratorPage, illustrationsList } = useLoaderData<IllustratorPageData>();

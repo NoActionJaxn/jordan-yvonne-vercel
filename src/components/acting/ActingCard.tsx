@@ -1,5 +1,5 @@
 import { Link } from "react-router";
-import Image from "../ui/Image";
+import Image from "../common/Image";
 import type { BlocksContent } from "@strapi/blocks-react-renderer";
 import BlockRendererClient from "../shared/BlockRendererClient";
 import { formatDate } from "../../lib/util/formatDate";

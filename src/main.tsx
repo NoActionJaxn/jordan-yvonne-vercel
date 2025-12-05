@@ -1,4 +1,4 @@
-import { act, StrictMode } from 'react'
+import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { createBrowserRouter, RouterProvider } from 'react-router'
 import { HelmetProvider } from '@dr.pogodin/react-helmet';
@@ -10,6 +10,8 @@ import ArtPage from './pages/art';
 import CostumeItemPage from './pages/costuming/slug';
 import ActingItemPage from './pages/acting/slug';
 import ArtItemPage from './pages/art/slug';
+import Error from './components/common/Error';
+
 import {
   actorPageLoader,
   costumeItemLoader,
@@ -61,7 +63,8 @@ let router = createBrowserRouter([
         path: '/art/:slug',
         loader: illustrationItemLoader,
       },
-    ]
+    ],
+    errorElement: <Error />,
   }
 ]);
 

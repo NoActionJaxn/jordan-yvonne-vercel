@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import Image from "../ui/Image";
+import Image from "./Image";
 import { STRAPI_URL } from "../../constants/strapi";
 import Video from "./Video";
 import { useEffect, useRef, useState } from "react";

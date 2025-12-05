@@ -1,10 +1,10 @@
 import { useLoaderData } from "react-router";
 import Head from "../../components/shared/Head";
 import BlockRendererClient from "../../components/shared/BlockRendererClient";
+import { Heading } from "../../components/common/Typeography";
+import MediaGallery from "../../components/common/MediaGallery";
 import type { StrapiSeo } from "../../types/strapi";
-import type { CostumeItemPageData } from "../../lib/loaders";
-import { Heading } from "../../components/ui/Typeography";
-import MediaGallery from "../../components/ui/MediaGallery";
+import type { CostumeItemPageData } from "../../types/loaders";
 
 export default function CostumeItemPage() {
   const {
@@ -16,8 +16,6 @@ export default function CostumeItemPage() {
     ...siteInfo?.seo,
     ...costumeItem?.seo,
   } as StrapiSeo;
-
-  console.log({ costumeItem });
 
   const mediaItems = (costumeItem?.media ?? []).map(item => ({
     url: item.url,

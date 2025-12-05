@@ -21,7 +21,7 @@ export function Heading({ children, className, level = 1, ...rest }: Typeography
 
   switch (level) {
     case 1:
-      return <h1 className={classNames(common, "text-4xl md:text-5xl font-cursive!", className)} {...rest}>{children}</h1>;
+      return <h1 className={classNames(common, "text-4xl md:text-5xl font-normal! font-cursive!", className)} {...rest}>{children}</h1>;
     case 2:
       return <h2 className={classNames(common, "text-3xl md:text-4xl", className)} {...rest}>{children}</h2>;
     case 3:

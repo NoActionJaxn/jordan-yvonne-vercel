@@ -1,7 +1,7 @@
 import classNames from "classnames";
 import { motion } from "motion/react";
 import { useEffect, useMemo, useState } from "react";
-import Spinner from "../ui/Spinner";
+import Spinner from "../common/Spinner";
 
 export interface MansoryLayoutProps<P extends object> {
   Component: React.ComponentType<P>;

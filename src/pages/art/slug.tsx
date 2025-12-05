@@ -1,10 +1,10 @@
 import { useLoaderData } from "react-router";
 import Head from "../../components/shared/Head";
 import BlockRendererClient from "../../components/shared/BlockRendererClient";
+import { Heading } from "../../components/common/Typeography";
+import MediaGallery from "../../components/common/MediaGallery";
 import type { StrapiSeo } from "../../types/strapi";
-import type { IllustrationItemPageData } from "../../lib/loaders";
-import { Heading } from "../../components/ui/Typeography";
-import MediaGallery from "../../components/ui/MediaGallery";
+import type { IllustrationItemPageData } from "../../types/loaders";
 
 export default function ArtItemPage() {
   const { siteInfo, illustrationItem } = useLoaderData<IllustrationItemPageData>();

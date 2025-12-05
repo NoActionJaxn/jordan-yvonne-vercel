@@ -1,13 +1,13 @@
 import { useLoaderData } from "react-router";
 import Head from "../../components/shared/Head";
 import BlockRendererClient from "../../components/shared/BlockRendererClient";
-import { Heading } from "../../components/ui/Typeography";
+import { Heading } from "../../components/common/Typeography";
 import MansoryLayout from "../../components/shared/MansoryLayout";
 import ActingCard from "../../components/acting/ActingCard";
 import DownloadButton from "../../components/shared/DownloadButton";
 import useSetPageCountParam from "../../hooks/useSetPageCountParam";
 import { useRevalidator } from "react-router";
-import type { ActorPageData } from "../../lib/loaders";
+import type { ActorPageData } from "../../types/loaders";
 import type { StrapiSeo } from "../../types/strapi";
 
 export default function ActingPage() {

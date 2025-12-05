@@ -2,9 +2,10 @@ import { useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { Link, useLocation } from "react-router";
 import classNames from "classnames";
-import Image from "../ui/Image";
+import Image from "../common/Image";
 import type { StrapiCallToAction } from "../../types/strapi";
 import MenuButton from "./MenuButton";
+import { Heading } from "../common/Typeography";
 
 export interface PageHeaderProps {
   logo?: string;
@@ -87,24 +88,27 @@ export default function PageHeader({ logo, menu, condensed }: PageHeaderProps) {
             transition={{ duration: 0.25, ease: "easeOut" }}
             className="sm:hidden fixed z-10 top-0 left-0 w-full h-full bg-amber-50 flex flex-col items-center justify-center"
           >
-            <nav className="p-4 flex flex-col items-center">
-              <ul className="space-y-4">
-                {menu?.map((item) => (
-                  <li key={item.id}>
-                    <Link
-                      to={{ pathname: item.url }}
-                      onClick={handleCloseMenu}
-                      className={
-                        classNames(
-                          "font-cursive text-5xl underline decoration-transparent hover:decoration-amber-400! underline-offset-5 transition-all duration-300 ease-in-out",
-                          isActive(item.url) ? "underline decoration-black!" : undefined
-                        )}
-                    >
-                      {item.label}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
+            <nav className="p-4 space-y-5">
+              <Heading level={2} className="font-cursive!">Menu</Heading>
+              <div className="flex flex-col items-center">
+                <ul className="space-y-4">
+                  {menu?.map((item) => (
+                    <li key={item.id}>
+                      <Link
+                        to={{ pathname: item.url }}
+                        onClick={handleCloseMenu}
+                        className={
+                          classNames(
+                            "font-cursive text-5xl underline decoration-transparent hover:decoration-amber-400! underline-offset-5 transition-all duration-300 ease-in-out",
+                            isActive(item.url) ? "underline decoration-black!" : undefined
+                          )}
+                      >
+                        {item.label}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </nav>
           </motion.div>
         )}
