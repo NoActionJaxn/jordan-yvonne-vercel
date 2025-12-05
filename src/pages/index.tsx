@@ -18,7 +18,7 @@ export default function IndexPage() {
   return (
     <>
     <Head siteTitle={siteInfo?.title} pageTitle={landingPage?.page_title} seo={mergedSeo} />
-      <div className="text-center">
+      <div className="text-center pb-10">
         {landingPage?.description && (
           <BlockRendererClient content={landingPage.description} />
         )}

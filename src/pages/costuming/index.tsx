@@ -1,11 +1,10 @@
-import { useCallback, useEffect, useMemo } from "react";
-import { Link, useLoaderData, useSearchParams } from "react-router";
-import debounce from "lodash.debounce";
+import { useLoaderData, useRevalidator } from "react-router";
 import Head from "../../components/shared/Head";
 import BlockRendererClient from "../../components/shared/BlockRendererClient";
 import CostumingCard from "../../components/costumes/CostumingCard";
 import MansoryLayout from "../../components/shared/MansoryLayout";
-import { STRAPI_URL } from "../../constants/strapi";
+import DownloadButton from "../../components/shared/DownloadButton";
+import useSetPageCountParam from "../../hooks/useSetPageCountParam";
 import type { CostumingPageData } from "../../lib/loaders";
 import type { StrapiSeo } from "../../types/strapi";
 
@@ -16,42 +15,16 @@ export default function CostumingPage() {
     costumeList,
   } = useLoaderData<CostumingPageData>();
 
+  const { state: revalidatorState } = useRevalidator();
+
+  const isRefetching = revalidatorState === "loading";
+
   const mergedSeo = {
     ...siteInfo?.seo,
     ...costumePage?.seo,
   } as StrapiSeo;
 
-  const [searchParams, setSearchParams] = useSearchParams();
-  const pageCount = Number(searchParams.get("pageCount") ?? 1);
-  const totalResults = costumeList?.meta.pagination.total ?? 0;
-  const resultsPerPage = costumeList?.meta.pagination.pageSize ?? 10;
-
-  const handleScroll = useCallback(() => {
-    const scrollPos = window.innerHeight + window.scrollY;
-    const bottom = document.documentElement.scrollHeight - 50;
-
-    if (scrollPos >= bottom) {
-      const hasMore = pageCount * resultsPerPage < totalResults;
-
-      if (hasMore) {
-        const next = pageCount + 1;
-        setSearchParams({ pageCount: String(next) }, { replace: true });
-      }
-    }
-  }, [pageCount, resultsPerPage, totalResults, setSearchParams]);
-
-  // Debounce scroll handler using lodash.debounce
-  const debouncedHandleScroll = useMemo(() => debounce(handleScroll, 200), [handleScroll]);
-  useEffect(() => {
-    window.addEventListener("scroll", debouncedHandleScroll);
-    return () => {
-      window.removeEventListener("scroll", debouncedHandleScroll);
-      debouncedHandleScroll.cancel?.();
-    };
-  }, [debouncedHandleScroll]);
-
-  const list = costumeList?.data ?? [];
-  const items = list.map((item) => ({
+  const items = (costumeList?.data ?? []).map((item) => ({
     date: item.publishedAt,
     title: item.title,
     slug: item.slug,
@@ -60,36 +33,42 @@ export default function CostumingPage() {
     descText: item.description,
   }));
 
+  useSetPageCountParam({ meta: costumeList?.meta });
+
   return (
     <>
       <Head siteTitle={siteInfo?.title} pageTitle={costumePage?.page_title} seo={mergedSeo} />
       <div className="px-16">
-        <div className="flex gap-10">
-          <aside className="min-w-sm space-y-5 sticky top-20 self-start">
-            {costumePage?.title && (
-              <div className="space-y-5">
-                <h1 className="text-6xl font-cursive font-bold">{costumePage.title}</h1>
-              </div>
-            )}
-            {costumePage?.description && (
-              <div>
-                <BlockRendererClient content={costumePage.description} />
-              </div>
-            )}
-            {costumePage?.resume?.url && (
-              <div className="pt-5">
-                <Link to={`${STRAPI_URL}${costumePage.resume.url}`} className="flex flex-col items-center justify-center rounded-xl gap-1 aspect-square bg-amber-200 size-32">
-                  <i className="text-7xl fa-solid fa-file-pdf pt-1"></i>
-                  <span className="text-xs font-sans uppercase">Resume</span>
-                </Link>
-              </div>
-            )}
+        <div className="grid grid-cols-3 gap-10">
+          <aside className="grid grid-cols-3 col-span-3 lg:col-span-1 lg:sticky  space-y-5 relative top-20 self-start">
+            <div className="col-span-3 md:col-span-2 lg:col-span-3 space-y-5">
+              {costumePage?.title && (
+                <div>
+                  <h1 className="text-6xl font-cursive font-bold">{costumePage.title}</h1>
+                </div>
+              )}
+              {costumePage?.description && (
+                <div>
+                  <BlockRendererClient content={costumePage.description} />
+                </div>
+              )}
+            </div>
+            <div className="col-span-3 md:col-span-1 lg:col-span-3 flex lg:justify-start lg:items-start items-center justify-center">
+              {costumePage?.resume?.url && (
+                <div className="pt-5">
+                  <DownloadButton fileUrl={costumePage.resume.url} label="Resume" />
+                </div>
+              )}
+            </div>
           </aside>
-          <MansoryLayout
-            Component={CostumingCard}
-            data={items}
-            keyExtractor={(it) => it.slug}
-          />
+          <div className="col-span-3 lg:col-span-2">
+            <MansoryLayout
+              Component={CostumingCard}
+              data={items}
+              keyExtractor={(it) => it.slug}
+              isLoading={isRefetching}
+            />
+          </div>
         </div>
       </div>
     </>

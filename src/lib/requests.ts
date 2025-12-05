@@ -98,6 +98,19 @@ export const fetchCostumeList = async (pageNumber: number = 1) => await fetchApi
   return null;
 });
 
+export const fetchCostumeItem = async (slug: string) => await fetchApi<CostumeList>({
+  endpoint: "costuming",
+  query: {
+    filters: { slug: { $eq: slug } },
+    populate: "*",
+  },
+}).then((res) => {
+  return res.data[0] ?? null;
+}).catch((err) => {
+  console.error("Error fetching costumer:", err);
+  return null;
+});
+
 export const fetchActorPage = await fetchApi<ActorPage>({
   endpoint: "actor-page",
   wrappedByKey: "data",

@@ -31,7 +31,7 @@ export default function CostumingCard({
           <span className="block text-sm p-2">{formatDate(date)}</span>
         </div>
       )}
-      <div className="block bg-white rounded-2xl shadow-md ring-0 ring-amber-200 group-hover:ring-4 group-focus-visible:ring-2 group-active:ring-2">
+      <div className="block bg-white rounded-2xl shadow-md ring-0 group-hover:ring-4 ring-amber-400 group-focus-visible:ring-2 group-active:ring-2">
         <div className="flex flex-col">
           {thumb ? (
             <Image

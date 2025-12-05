@@ -1,6 +1,7 @@
 import classNames from "classnames";
 import { motion } from "motion/react";
 import { useEffect, useMemo, useState } from "react";
+import Spinner from "../ui/Spinner";
 
 export interface MansoryLayoutProps<P extends object> {
   Component: React.ComponentType<P>;
@@ -11,6 +12,7 @@ export interface MansoryLayoutProps<P extends object> {
   containerClassName?: string;
   staggered?: boolean;
   animate?: boolean;
+  isLoading?: boolean;
 }
 
 export default function MansoryLayout<P extends object>({
@@ -22,6 +24,7 @@ export default function MansoryLayout<P extends object>({
   containerClassName,
   staggered = true,
   animate = true,
+  isLoading = false,
 }: MansoryLayoutProps<P>) {
   const list = data ?? [];
   const [left, setLeft] = useState<P[]>([]);
@@ -45,8 +48,9 @@ export default function MansoryLayout<P extends object>({
 
   return (
     <div className={classNames("grid grid-cols-2 gap-10", containerClassName)}>
-      <div className={classNames("col-span-1 space-y-5", leftClassName)}>
-        {left.map((item, i) => {
+      {/* Single column for smaller screens */}
+      <div className="block lg:hidden col-span-2 py-20 space-y-5">
+        {list.map((item, i) => {
           const key = keyExtractor ? keyExtractor(item, i) : i;
           return animate ? (
             <motion.div
@@ -62,7 +66,29 @@ export default function MansoryLayout<P extends object>({
           );
         })}
       </div>
-      <div className={classNames("col-span-1 space-y-5", rightClassName)}>
+
+      {/* Mansory layout system */}
+      <div className={classNames("col-span-1 space-y-5 hidden lg:block", leftClassName)}>
+        {left.map((item, i) => {
+          const key = keyExtractor ? keyExtractor(item, i) : i;
+          return animate ? (
+            <motion.div
+              key={key}
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.35, ease: "easeOut", delay: getDelay(item) }}
+            >
+              <Component {...item} />
+            </motion.div>
+          ) : (
+            <Component key={key} {...item} />
+          );
+        })}
+        {isLoading && list.length % 2 === 1 && (
+          <Spinner />
+        )}
+      </div>
+      <div className={classNames("col-span-1 space-y-5 hidden lg:block", rightClassName)}>
         {staggered && <div className="h-16" />}
         {right.map((item, i) => {
           const key = keyExtractor ? keyExtractor(item, i) : i;
@@ -79,6 +105,9 @@ export default function MansoryLayout<P extends object>({
             <Component key={key} {...item} />
           );
         })}
+        {isLoading && list.length % 2 === 0 && (
+          <Spinner />
+        )}
       </div>
     </div>
   );

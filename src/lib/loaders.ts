@@ -1,6 +1,6 @@
 import type { LoaderFunctionArgs } from "react-router";
-import type { SiteInfo, Socials, Menu, LandingPage, CostumePage, ActorPage, IllustratorPage, CostumeList } from "../types/requests";
-import { fetchLandingPage, fetchMenu, fetchSiteInfo, fetchSocials, fetchCostumePage, fetchActorPage, fetchIllustratorPage, fetchCostumeList } from "./requests";
+import type { SiteInfo, Socials, Menu, LandingPage, CostumePage, ActorPage, IllustratorPage, CostumeList, CostumeItem } from "../types/requests";
+import { fetchLandingPage, fetchMenu, fetchSiteInfo, fetchSocials, fetchCostumePage, fetchActorPage, fetchIllustratorPage, fetchCostumeList, fetchCostumeItem } from "./requests";
 
 export interface DefaultLayoutData {
   siteInfo: SiteInfo | null;
@@ -36,12 +36,26 @@ export interface CostumingPageData {
 
 export const costumePageLoader = async ({ request }: LoaderFunctionArgs<any>): Promise<CostumingPageData> => {
   const url = new URL(request.url);
-  const pageCount = url.searchParams.get("pageCount") ?? "1";
+  const pageCount = url.searchParams.get("pageCount") ?? 1;
 
   return {
     siteInfo: fetchSiteInfo,
     costumePage: fetchCostumePage,
     costumeList: await fetchCostumeList(Number(pageCount)),
+  };
+};
+
+export interface CostumeItemPageData {
+  siteInfo: SiteInfo | null;
+  costumeItem: CostumeItem | null;
+};
+
+export const costumeItemLoader = async ({ params }: LoaderFunctionArgs<any>): Promise<unknown> => {
+  const { slug } = params;
+
+  return {
+    siteInfo: fetchSiteInfo,
+    costumeItem: await fetchCostumeItem(slug ?? ""),
   };
 };
 
