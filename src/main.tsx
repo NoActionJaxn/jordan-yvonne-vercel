@@ -23,7 +23,7 @@ import {
   actorItemLoader
 } from './lib/loaders';
 
-let router = createBrowserRouter([
+const router = createBrowserRouter([
   {
     Component: DefaultLayout,
     loader: defaultLayoutLoader,

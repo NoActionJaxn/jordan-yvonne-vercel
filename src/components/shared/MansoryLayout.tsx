@@ -1,6 +1,6 @@
 import classNames from "classnames";
 import { motion } from "motion/react";
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import Spinner from "../common/Spinner";
 
 export interface MansoryLayoutProps<P extends object> {
@@ -26,17 +26,21 @@ export default function MansoryLayout<P extends object>({
   animate = true,
   isLoading = false,
 }: MansoryLayoutProps<P>) {
-  const list = data ?? [];
+  const list = useMemo(() => data ?? [], [data]);
   const [left, setLeft] = useState<P[]>([]);
   const [right, setRight] = useState<P[]>([]);
 
-  useEffect(() => {
+  const sortLists = useCallback(() => {
     const l: typeof list = [];
     const r: typeof list = [];
     list.forEach((item, i) => ((i % 2 === 0 ? l : r).push(item)));
     setLeft(l);
     setRight(r);
   }, [list]);
+
+  useEffect(() => {
+    return () => sortLists();
+  }, [list, sortLists]);
 
   const getDelay = useMemo(
     () => (item: P) => {

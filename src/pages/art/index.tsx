@@ -18,6 +18,17 @@ export default function ArtPage() {
     ...illustratorPage?.seo,
   } as StrapiSeo;
 
+  const items = (illustrationsList?.data ?? []).map((item) => ({
+    date: item.publishedAt,
+    title: item.title,
+    slug: item.slug,
+    thumb: item.images?.[0]?.url,
+    alt: item.images?.[0]?.alternativeText || item.title,
+    descText: item.description,
+  }));
+
+  useSetPageCountParam({ meta: illustrationsList?.meta });
+
   return (
     <>
       <Head siteTitle={siteInfo?.title} pageTitle={illustratorPage?.page_title} seo={mergedSeo} />
@@ -38,27 +49,12 @@ export default function ArtPage() {
             </div>
           </aside>
           <div className="col-span-3 lg:col-span-2">
-            {(() => {
-              const items = (illustrationsList?.data ?? []).map((item) => ({
-                date: item.publishedAt,
-                title: item.title,
-                slug: item.slug,
-                thumb: item.images?.[0]?.url,
-                alt: item.images?.[0]?.alternativeText || item.title,
-                descText: item.description,
-              }));
-
-              useSetPageCountParam({ meta: illustrationsList?.meta });
-
-              return (
-                <MansoryLayout
-                  Component={ArtCard}
-                  data={items}
-                  keyExtractor={(it) => it.slug}
-                  isLoading={isRefetching}
-                />
-              );
-            })()}
+            <MansoryLayout
+              Component={ArtCard}
+              data={items}
+              keyExtractor={(it) => it.slug}
+              isLoading={isRefetching}
+            />
           </div>
         </div>
       </div>

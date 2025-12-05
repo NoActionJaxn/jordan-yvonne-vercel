@@ -6,7 +6,7 @@ export interface TypeographyProps extends React.HTMLAttributes<HTMLHeadingElemen
   level?: HeadingLevels;
 }
 
-export interface ParagraphProps extends React.HTMLAttributes<HTMLParagraphElement> {}
+export type ParagraphProps = React.HTMLAttributes<HTMLParagraphElement>;
 
 export function Paragraph({ children, className, ...rest }: ParagraphProps) {
   return (

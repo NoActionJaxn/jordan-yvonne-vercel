@@ -12,7 +12,6 @@ export default function useSetPageCountParam({ meta }: UseScrollingPageSizeProps
 
   const pageCount = Number(searchParams.get("pageCount") ?? meta?.pagination.page ?? 1);
   const totalResults = meta?.pagination.total ?? 0;
-  const resultsPerPage = meta?.pagination.pageSize ?? 10;
   const pageSize = meta?.pagination.pageSize ?? 4;
 
   const handleScroll = useCallback(() => {
@@ -27,7 +26,7 @@ export default function useSetPageCountParam({ meta }: UseScrollingPageSizeProps
         setSearchParams({ pageCount: String(next) }, { replace: true });
       }
     }
-  }, [pageCount, resultsPerPage, totalResults, setSearchParams]);
+  }, [pageCount, totalResults, setSearchParams, pageSize]);
 
   const debouncedHandleScroll = useMemo(() => debounce(handleScroll, 200), [handleScroll]);
 

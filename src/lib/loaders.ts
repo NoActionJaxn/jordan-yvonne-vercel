@@ -17,7 +17,7 @@ export const landingPageLoader = async (): Promise<LandingPageData> => {
   };
 };
 
-export const costumePageLoader = async ({ request }: LoaderFunctionArgs<any>): Promise<CostumingPageData> => {
+export const costumePageLoader = async ({ request }: LoaderFunctionArgs<unknown>): Promise<CostumingPageData> => {
   const url = new URL(request.url);
   const pageCount = url.searchParams.get("pageCount") ?? 1;
 
@@ -28,7 +28,7 @@ export const costumePageLoader = async ({ request }: LoaderFunctionArgs<any>): P
   };
 };
 
-export const costumeItemLoader = async ({ params }: LoaderFunctionArgs<any>): Promise<unknown> => {
+export const costumeItemLoader = async ({ params }: LoaderFunctionArgs<unknown>): Promise<unknown> => {
   const { slug } = params;
 
   return {
@@ -37,7 +37,7 @@ export const costumeItemLoader = async ({ params }: LoaderFunctionArgs<any>): Pr
   };
 };
 
-export const actorPageLoader = async ({ request }: LoaderFunctionArgs<any>): Promise<ActorPageData> => {
+export const actorPageLoader = async ({ request }: LoaderFunctionArgs<unknown>): Promise<ActorPageData> => {
   const url = new URL(request.url);
   const pageCount = url.searchParams.get("pageCount") ?? 1;
 
@@ -50,7 +50,7 @@ export const actorPageLoader = async ({ request }: LoaderFunctionArgs<any>): Pro
 
 
 
-export const actorItemLoader = async ({ params }: LoaderFunctionArgs<any>): Promise<unknown> => {
+export const actorItemLoader = async ({ params }: LoaderFunctionArgs<unknown>): Promise<unknown> => {
   const { slug } = params;
 
   return {
@@ -59,7 +59,7 @@ export const actorItemLoader = async ({ params }: LoaderFunctionArgs<any>): Prom
   };
 };
 
-export const illustrationItemLoader = async ({ params }: LoaderFunctionArgs<any>): Promise<unknown> => {
+export const illustrationItemLoader = async ({ params }: LoaderFunctionArgs<unknown>): Promise<unknown> => {
   const { slug } = params;
 
   return {
@@ -68,7 +68,7 @@ export const illustrationItemLoader = async ({ params }: LoaderFunctionArgs<any>
   };
 };
 
-export const illustratorPageLoader = async ({ request }: LoaderFunctionArgs<any>): Promise<IllustratorPageData> => {
+export const illustratorPageLoader = async ({ request }: LoaderFunctionArgs<unknown>): Promise<IllustratorPageData> => {
   const url = new URL(request.url);
   const pageCount = url.searchParams.get("pageCount") ?? 1;
 

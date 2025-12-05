@@ -1,6 +1,6 @@
 import { STRAPI_URL } from "../constants/strapi";
 
-type QueryValue = string | string[] | Record<string, any>;
+type QueryValue = string | string[] | Record<string, unknown>;
 
 interface Props {
   endpoint: string;
@@ -31,7 +31,7 @@ export default async function fetchApi<T>({
 
   const url = new URL(`${STRAPI_URL}/api/${endpoint}`);
 
-  const appendNested = (prefix: string, val: any) => {
+  const appendNested = (prefix: string, val: unknown) => {
     if (val === undefined || val === null) return;
     if (Array.isArray(val)) {
       val.forEach((v, i) => {

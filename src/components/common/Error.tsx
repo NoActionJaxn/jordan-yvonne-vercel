@@ -20,7 +20,7 @@ export default function Error({
   reportHref,
   reportLabel = "Report issue",
 }: ErrorPageProps) {
-  let error = useRouteError() as { data?: string } | null;
+  const error = useRouteError() as { data?: string } | null;
   const code = error?.data ? String(error.data) : undefined;
 
   return (

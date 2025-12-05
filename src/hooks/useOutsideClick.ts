@@ -30,8 +30,8 @@ export default function useOutsideClick<T extends HTMLElement>(
     document.addEventListener("touchstart", listener, { capture: true });
 
     return () => {
-      document.removeEventListener("mousedown", listener, { capture: true } as any);
-      document.removeEventListener("touchstart", listener, { capture: true } as any);
+      document.removeEventListener("mousedown", listener, { capture: true });
+      document.removeEventListener("touchstart", listener, { capture: true });
     };
   }, [ref, handler, enabled]);
 }
