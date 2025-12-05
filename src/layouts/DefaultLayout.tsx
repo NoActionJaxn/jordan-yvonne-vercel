@@ -13,6 +13,7 @@ export default function DefaultLayout() {
   const notRoot = location.pathname !== "/";
 
   const prevNotRootRef = useRef(notRoot);
+  
   // eslint-disable-next-line
   const prevNotRoot = prevNotRootRef.current;
 
