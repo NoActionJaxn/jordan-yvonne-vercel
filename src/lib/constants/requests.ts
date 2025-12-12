@@ -11,9 +11,7 @@ export const SITE_SETTINGS_QUERY = `
 `;
 
 export const DEFAULT_SEO_QUERY = `
-*[_id == "siteSettings"][0]{
-  defaultSEO
-}
+*[_id == "siteSettings"][0].defaultSEO
 `;
 
 export const MENU_ITEMS_QUERY = `
@@ -55,9 +53,7 @@ export const COSTUME_PAGE_QUERY = `
 `;
 
 export const COSTUME_PAGE_SEO_QUERY = `
-*[_id == "costumePage"][0] {
-  seo
-}
+*[_id == "costumePage"][0].seo
 `;
 
 export const COSTUMES_QUERY = `
@@ -105,9 +101,7 @@ export const ACTING_PAGE_QUERY = `
 `;
 
 export const ACTING_PAGE_SEO_QUERY = `
-*[_id == "actingPage"][0] {
-  seo
-}
+*[_id == "actingPage"][0].seo
 `;
 
 export const ACTORS_QUERY = `
