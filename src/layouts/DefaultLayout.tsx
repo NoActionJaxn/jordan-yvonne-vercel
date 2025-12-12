@@ -60,7 +60,7 @@ export default function DefaultLayout() {
 
         <PageHeader logo={settings?.logo} menu={menu?.menuItems} condensed={notRoot} />
         <AnimatePresence mode="wait">
-          <motion.div
+          <motion.main
             key={location.pathname}
             className={classNames("container sm:py-12 py-0 px-2")}
             initial={{ flexGrow: prevNotRoot ? 1 : 0 }}
@@ -69,7 +69,7 @@ export default function DefaultLayout() {
             transition={{ duration: 0.3, ease: "easeInOut" }}
           >
             <Outlet />
-          </motion.div>
+          </motion.main>
         </AnimatePresence>
         <PageFooter socials={socials?.socialLinks} condensed={notRoot} />
       </div>
