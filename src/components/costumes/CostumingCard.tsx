@@ -1,16 +1,17 @@
 import { Link } from "react-router";
 import Image from "../ui/Image";
-import type { BlocksContent } from "@strapi/blocks-react-renderer";
 import BlockRenderer from "../shared/BlockRenderer";
 import { formatDate } from "../../lib/util/formatDate";
+import type { PortableTextBlock } from "@portabletext/react";
+import type { SanityImageSource } from "@sanity/image-url";
 
 interface CostumingCardProps {
   date?: string;
   title: string;
   slug: string;
-  thumb?: string;
+  thumb?: SanityImageSource;
   alt?: string;
-  descText?: BlocksContent;
+  descText?: PortableTextBlock[];
 }
 
 export default function CostumingCard({
@@ -48,7 +49,7 @@ export default function CostumingCard({
             <h3 className="text-xl font-serif font-bold capitalize">{title}</h3>
             {descText && (
               <div className="line-clamp-3 h-16">
-                <BlockRenderer className="text-sm" content={descText} styless />
+                <BlockRenderer className="text-sm" content={descText} withStyles={false} />
               </div>
             )}
           </div>

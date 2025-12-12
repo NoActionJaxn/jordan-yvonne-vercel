@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import { sanityImageBuilder } from "../../lib/util/sanityImageBuilder";
+import { imageBuilder } from "../../lib/util/imageBuilder";
 import type { SanityImageSource } from "@sanity/image-url";
 
 interface ImageProps extends React.HTMLAttributes<HTMLImageElement> {
@@ -15,7 +15,7 @@ export default function Image({ src = '', alt = '', className, loading = "lazy",
   return (
     <div className={classNames(className, "flex items-center justify-center overflow-hidden")}>
       <img
-        src={sanityImageBuilder(src).url()}
+        src={imageBuilder(src).url()}
         alt={alt}
         className="w-full h-auto object-cover"
         loading={loading}

@@ -93,7 +93,7 @@ export default function PageHeader({ logo, menu, condensed }: PageHeaderProps) {
               <Heading level={2} className="font-cursive!">Menu</Heading>
               <div className="flex flex-col items-center">
                 <ul className="space-y-4">
-                  {menu?.map((item, i) => (
+                  {menu?.map((item) => (
                     <li key={item._key}>
                       <Link
                         to={{ pathname: item.url }}

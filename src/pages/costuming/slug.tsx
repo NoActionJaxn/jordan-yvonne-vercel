@@ -3,40 +3,53 @@ import Head from "../../components/shared/Head";
 import BlockRenderer from "../../components/shared/BlockRenderer";
 import { Heading } from "../../components/ui/Typeography";
 import MediaGallery from "../../components/ui/MediaGallery";
-import type { StrapiSeo } from "../../types/strapi";
-import type { CostumeItemPageData } from "../../types/loaders";
+import type { SanitySEO } from "../../types/sanity";
+import type { Costume, SiteSettings } from "../../types/requests";
+import { mergeSeo } from "../../lib/util/mergeSeo";
+import { imageBuilder } from "../../lib/util/imageBuilder";
+
+interface LoaderData {
+  rootSeo: SanitySEO;
+  costumeSeo: SanitySEO;
+  settings: SiteSettings;
+  page: Costume;
+}
 
 export default function CostumeItemPage() {
   const {
-    siteInfo,
-    costumeItem,
-  } = useLoaderData<CostumeItemPageData>();
+    rootSeo,
+    costumeSeo,
+    settings,
+    page,
+  } = useLoaderData<LoaderData>();
 
-  const mergedSeo = {
-    ...siteInfo?.seo,
-    ...costumeItem?.seo,
-  } as StrapiSeo;
+  const seo = mergeSeo(rootSeo, costumeSeo, page?.seo);
 
-  const mediaItems = (costumeItem?.media ?? []).map(item => ({
-    url: item.url,
-    mime: item.mime,
-    alt: item.alternativeText,
-    poster: item.previewUrl,
-  }));
+  const mediaItems = (page.galleryImages ?? []).map(image => {
+    const sanityImage = imageBuilder(image)
+    const source = sanityImage.options.source as { _type?: string } | undefined;
+
+    return {
+      url: sanityImage.url(),
+      mime: source?._type ?? 'image/jpeg',
+      alt: "Gallery image for " + (page?.title ?? ""),
+      thumb: sanityImage.width(400).url(),
+    }
+  });
 
   return (
     <>
-      <Head siteTitle={siteInfo?.title} pageTitle={costumeItem?.title} seo={mergedSeo} />
+      <Head siteTitle={settings?.title} pageTitle={page?.title} seo={seo} />
       <main className="px-15 py-10 space-y-10">
-        {costumeItem?.title && (
+        {page?.title && (
           <div className="text-center">
-            <Heading>{costumeItem.title}</Heading>
+            <Heading>{page.title}</Heading>
           </div>
         )}
-        {costumeItem?.description && (
-          <BlockRenderer content={costumeItem.description} />
+        {page?.description && (
+          <BlockRenderer content={page.description} />
         )}
-        {costumeItem?.media && costumeItem.media.length > 0 && (
+        {page?.galleryImages && page.galleryImages.length > 0 && (
           <MediaGallery items={mediaItems} />
         )}
       </main>

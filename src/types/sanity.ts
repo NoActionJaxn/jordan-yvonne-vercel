@@ -41,3 +41,8 @@ export interface SanityOpenGraph {
   ogType?: string;
   ogUrl?: string;
 }
+
+export interface SanitySlug {
+  _type: string;
+  current: string;
+}

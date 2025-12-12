@@ -2,7 +2,7 @@ import { Helmet } from "@dr.pogodin/react-helmet";
 import { titleBuilder } from "../../lib/titleBuilder";
 import type { SEO } from "../../types/seo";
 import type { SanityImageSource } from "@sanity/image-url";
-import { sanityImageBuilder } from "../../lib/util/sanityImageBuilder";
+import { imageBuilder } from "../../lib/util/imageBuilder";
 
 export interface HeadProps {
   siteTitle?: string;
@@ -19,9 +19,9 @@ export default function Head({ siteTitle, pageTitle, children, favIcon, seo }: H
 
       {favIcon && (
         <>
-          <link rel="icon" type="image/svg+xml" href={sanityImageBuilder(favIcon).url()} />
-          <link rel="shortcut icon" href={sanityImageBuilder(favIcon).url()} />
-          <link rel="apple-touch-icon" href={sanityImageBuilder(favIcon).url()} />
+          <link rel="icon" type="image/svg+xml" href={imageBuilder(favIcon).url()} />
+          <link rel="shortcut icon" href={imageBuilder(favIcon).url()} />
+          <link rel="apple-touch-icon" href={imageBuilder(favIcon).url()} />
         </>
       )}
 
@@ -48,7 +48,7 @@ export default function Head({ siteTitle, pageTitle, children, favIcon, seo }: H
         <meta name="title" content={seo.metaTitle} />
       )}
       {seo?.metaImage && (
-        <meta name="image" content={sanityImageBuilder(seo.metaImage).url()} />
+        <meta name="image" content={imageBuilder(seo.metaImage).url()} />
       )}
 
       {seo?.openGraph && (
@@ -66,7 +66,7 @@ export default function Head({ siteTitle, pageTitle, children, favIcon, seo }: H
             <meta property="og:url" content={seo.openGraph.ogUrl} />
           )}
           {seo.openGraph.ogImage && (
-            <meta property="og:image" content={sanityImageBuilder(seo.openGraph.ogImage).url()} />
+            <meta property="og:image" content={imageBuilder(seo.openGraph.ogImage).url()} />
           )}
         </>
       )}

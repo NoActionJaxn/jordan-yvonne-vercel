@@ -6,7 +6,7 @@ export const SITE_SETTINGS_QUERY = `
   title,
   logo,
   alternateLogo,
-  favicon,
+  favicon
 }
 `;
 
@@ -39,3 +39,53 @@ export const LANDING_PAGE_QUERY = `
   title
 }
 `;
+
+export const COSTUME_PAGE_QUERY = `
+*[_id == "costumePage"][0] {
+  _id,
+  _createdAt,
+  _updatedAt,
+  title,
+  pageTitle,
+  description,
+  resumeFile,
+  seo
+}
+`;
+
+export const COSTUME_PAGE_SEO_QUERY = `
+*[_id == "costumePage"][0] {
+  seo
+}
+`;
+
+export const COSTUMES_QUERY = `
+*[_type == "costume"] | order(_createdAt asc) [0..$limit] {
+  _id,
+  _createdAt,
+  _publishedAt,
+  title,
+  slug,
+  description,
+  galleryImages,
+  seo
+} 
+`;
+
+export const TOTAL_COSTUMES_QUERY = `
+count(*[_type == "costume"])
+`;
+
+export const COSTUME_BY_SLUG_QUERY = `
+*[_type == "costume" && slug.current == $slug][0] {
+  _id,
+  _createdAt,
+  _publishedAt,
+  title,
+  slug,
+  description,
+  galleryImages,
+  seo
+}
+`;
+

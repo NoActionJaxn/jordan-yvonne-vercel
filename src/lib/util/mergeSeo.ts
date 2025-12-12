@@ -56,5 +56,3 @@ export function mergeSeo(
 
   return merged as SanitySEO;
 }
-
-export default mergeSeo;

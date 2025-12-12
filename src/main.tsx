@@ -12,6 +12,11 @@ import ActingItemPage from './pages/acting/slug';
 import ArtItemPage from './pages/art/slug';
 import Error from './components/ui/Error';
 import {
+  fetchCostumeBySlug,
+  fetchCostumeCount,
+  fetchCostumePage,
+  fetchCostumePageSEO,
+  fetchCostumes,
   fetchDefaultSEO,
   fetchLandingPage,
   fetchMenuItems,
@@ -45,12 +50,27 @@ const router = createBrowserRouter([
       {
         Component: CostumingPage,
         path: '/costuming',
-        loader: () => null,
+        loader: async () => {
+          return {
+            rootSeo: await fetchDefaultSEO(),
+            page: await fetchCostumePage(),
+            costumes: await fetchCostumes(),
+            totalCostumes: await fetchCostumeCount(),
+            settings: await fetchSiteSettings(),
+          };
+        },
       },
       {
         Component: CostumeItemPage,
         path: '/costuming/:slug',
-        loader: () => null,
+        loader: async ({ params }) => {
+          return {
+            rootSeo: await fetchDefaultSEO(),
+            costumeSeo: await fetchCostumePageSEO(),
+            page: await fetchCostumeBySlug(params?.slug ?? ""),
+            settings: await fetchSiteSettings(),
+          }
+        },
       },
       {
         Component: ActingPage,

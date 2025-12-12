@@ -1,16 +1,15 @@
 import classNames from "classnames";
-import { STRAPI_URL } from "../../constants/strapi";
 import { LinkButton, type LinkButtonProps } from "../ui/Buttons";
-import { isProd } from "../../lib/util/isProd";
+import { type SanityFileSource, documentBuilder } from "../../lib/util/documentBuilder";
 
 export interface DownloadButtonProps extends Omit<LinkButtonProps, "to" | "download"> {
-  fileUrl?: string;
+  fileUrl?: SanityFileSource;
   label?: string;
   faIconClassName?: string;
 }
 
 export default function DownloadButton({
-  fileUrl = "",
+  fileUrl,
   label = "Download",
   faIconClassName = "fa-solid fa-file-pdf",
   className,
@@ -19,7 +18,7 @@ export default function DownloadButton({
   return (
     <LinkButton
       aria-disabled={!fileUrl}
-      to={!isProd() ? `${STRAPI_URL}${fileUrl}` : fileUrl}
+      to={fileUrl ? documentBuilder(fileUrl).url() : ""}
       className={
         classNames(
           "flex flex-col items-center justify-center rounded-xl gap-1 aspect-square size-32",

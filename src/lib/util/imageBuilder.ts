@@ -3,6 +3,6 @@ import { createImageUrlBuilder, type SanityImageSource } from '@sanity/image-url
 
 const builder = createImageUrlBuilder(client)
 
-export function sanityImageBuilder(source: SanityImageSource) {
+export function imageBuilder(source: SanityImageSource) {
   return builder.image(source)
 }
