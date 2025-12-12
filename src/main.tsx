@@ -134,6 +134,7 @@ const router = createBrowserRouter([
       },
     ],
     errorElement: <Error />,
+    HydrateFallback: () => <div className="min-h-screen bg-amber-50" />,
   }
 ]);
 

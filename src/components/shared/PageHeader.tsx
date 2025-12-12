@@ -51,31 +51,25 @@ export default function PageHeader({ logo, menu, condensed }: PageHeaderProps) {
         <nav className="p-4 flex items-center">
           <ul className="space-x-4 space-y-4 sm:flex inline">
             {menu?.map((item, i) => (
-              <>
-                <li key={item._key}>
-                  <Link to={{
-                    pathname: item.url
-                  }}
-                    className={
-                      classNames(
-                        "font-cursive transition-all duration-300 ease-in-out",
-                        "hover:underline decoration-transparent hover:decoration-amber-400!",
-                        isActive(item.url) ? "underline decoration-black!" : undefined,
-                        condensed ? "underline-offset-5" : "underline-offset-7",
-                        condensed ? "text-5xl" : "text-7xl",
-                      )}>
-                    {item.label}
-                  </Link>
-                </li>
-                {i < menu.length - 1 && (
-                  <span className={
+              <li key={item._key} className={classNames(
+                i < menu.length - 1 && "after:content-['•'] after:ml-4 after:transition-all after:duration-300 after:ease-in-out",
+                i < menu.length - 1 && (condensed ? "after:text-4xl" : "after:text-6xl"),
+                "sm:after:inline-block after:hidden"
+              )}>
+                <Link to={{
+                  pathname: item.url
+                }}
+                  className={
                     classNames(
-                      "transition-all duration-300 ease-in-out",
-                      "sm:inline-block hidden",
-                      condensed ? "text-4xl" : "text-6xl"
-                    )}>•</span>
-                )}
-              </>
+                      "font-cursive transition-all duration-300 ease-in-out",
+                      "hover:underline decoration-transparent hover:decoration-amber-400!",
+                      isActive(item.url) ? "underline decoration-black!" : undefined,
+                      condensed ? "underline-offset-5" : "underline-offset-7",
+                      condensed ? "text-5xl" : "text-7xl",
+                    )}>
+                  {item.label}
+                </Link>
+              </li>
             ))}
           </ul>
         </nav>

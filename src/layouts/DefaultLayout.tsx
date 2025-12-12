@@ -45,19 +45,14 @@ export default function DefaultLayout() {
       <Head siteTitle={settings?.title} seo={seo} favIcon={settings?.favicon} />
       <div className="min-h-screen h-full flex flex-col items-center justify-center py-8 relative overflow-hidden">
         {/* Decorative corner borders */}
-        <img
-          src="/artistic-border.svg"
-          alt=""
+        <div
           aria-hidden="true"
-          className="pointer-events-none fixed top-5 right-0 w-32 h-32 md:w-48 md:h-48 lg:w-64 lg:h-64 object-contain -z-10"
+          className="pointer-events-none fixed top-5 right-0 w-32 h-32 md:w-48 md:h-48 lg:w-64 lg:h-64 -z-10 bg-[url('/artistic-border.svg')] bg-contain bg-no-repeat bg-center"
         />
-        <img
-          src="/artistic-border.svg"
-          alt=""
+        <div
           aria-hidden="true"
-          className="pointer-events-none fixed bottom-5 left-0 w-32 h-32 md:w-48 md:h-48 lg:w-64 lg:h-64 object-contain -z-10 rotate-180"
+          className="pointer-events-none fixed bottom-5 left-0 w-32 h-32 md:w-48 md:h-48 lg:w-64 lg:h-64 -z-10 bg-[url('/artistic-border.svg')] bg-contain bg-no-repeat bg-center rotate-180"
         />
-
         <PageHeader logo={settings?.logo} menu={menu?.menuItems} condensed={notRoot} />
         <AnimatePresence mode="wait">
           <motion.main
