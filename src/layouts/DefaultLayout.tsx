@@ -6,14 +6,26 @@ import Head from "../components/shared/Head";
 import PageHeader from "../components/shared/PageHeader";
 import PageFooter from "../components/shared/PageFooter";
 import '../styles/globals.css';
-import type { DefaultLayoutData } from "../types/loaders";
+import type { SanityCallToAction, SanitySEO } from "../types/sanity";
+import type { SiteSettings } from "../types/requests";
+
+interface LoaderData {
+  menu?: {
+    menuItems: SanityCallToAction[];
+  };
+  socials?: {
+    socialLinks: SanityCallToAction[];
+  };
+  seo: SanitySEO;
+  settings: SiteSettings;
+}
 
 export default function DefaultLayout() {
   const location = useLocation();
   const notRoot = location.pathname !== "/";
 
   const prevNotRootRef = useRef(notRoot);
-  
+
   // eslint-disable-next-line
   const prevNotRoot = prevNotRootRef.current;
 
@@ -22,16 +34,17 @@ export default function DefaultLayout() {
   }, [notRoot]);
 
   const {
-    siteInfo,
     menu,
     socials,
-  } = useLoaderData<DefaultLayoutData>();
+    seo,
+    settings,
+  } = useLoaderData<LoaderData>();
 
   return (
     <>
-      <Head siteTitle={siteInfo?.title} seo={siteInfo?.seo} favIcon={siteInfo?.favicon?.url} />
+      <Head siteTitle={settings?.title} seo={seo} favIcon={settings?.favicon} />
       <div className="min-h-screen h-full flex flex-col items-center justify-center py-8 bg-amber-50">
-        <PageHeader logo={siteInfo?.logo?.url} menu={menu?.menu_items} condensed={notRoot} />
+        <PageHeader logo={settings?.logo} menu={menu?.menuItems} condensed={notRoot} />
         <AnimatePresence mode="wait">
           <motion.div
             key={location.pathname}
@@ -44,7 +57,7 @@ export default function DefaultLayout() {
             <Outlet />
           </motion.div>
         </AnimatePresence>
-        <PageFooter socials={socials?.menu_items} condensed={notRoot} />
+        <PageFooter socials={socials?.socialLinks} condensed={notRoot} />
       </div>
     </>
   );

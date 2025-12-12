@@ -1,9 +1,9 @@
 import classNames from "classnames";
-import { STRAPI_URL } from "../../constants/strapi";
-import { isProd } from "../../lib/util/isProd";
+import { sanityImageBuilder } from "../../lib/util/sanityImageBuilder";
+import type { SanityImageSource } from "@sanity/image-url";
 
 interface ImageProps extends React.HTMLAttributes<HTMLImageElement> {
-  src?: string;
+  src?: SanityImageSource;
   alt?: string;
   className?: string;
   loading?: "eager" | "lazy";
@@ -15,7 +15,7 @@ export default function Image({ src = '', alt = '', className, loading = "lazy",
   return (
     <div className={classNames(className, "flex items-center justify-center overflow-hidden")}>
       <img
-        src={!isProd() ? `${STRAPI_URL}${src}` : src}
+        src={sanityImageBuilder(src).url()}
         alt={alt}
         className="w-full h-auto object-cover"
         loading={loading}

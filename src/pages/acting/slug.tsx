@@ -1,6 +1,6 @@
 import { useLoaderData } from "react-router";
 import Head from "../../components/shared/Head";
-import BlockRendererClient from "../../components/shared/BlockRendererClient";
+import BlockRenderer from "../../components/shared/BlockRenderer";
 import { Heading } from "../../components/ui/Typeography";
 import MediaGallery from "../../components/ui/MediaGallery";
 import type { StrapiSeo } from "../../types/strapi";
@@ -31,7 +31,7 @@ export default function ActorItemPage() {
           </div>
         )}
         {actorItem?.description && (
-          <BlockRendererClient content={actorItem.description} />
+          <BlockRenderer content={actorItem.description} />
         )}
         {actorItem?.media && actorItem.media.length > 0 && (
           <MediaGallery items={mediaItems} />

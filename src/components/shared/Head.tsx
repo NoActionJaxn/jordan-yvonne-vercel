@@ -1,15 +1,15 @@
 import { Helmet } from "@dr.pogodin/react-helmet";
 import { titleBuilder } from "../../lib/titleBuilder";
-import type { StrapiSeo } from "../../types/strapi";
-import { STRAPI_URL } from "../../constants/strapi";
-import { isProd } from "../../lib/util/isProd";
+import type { SEO } from "../../types/seo";
+import type { SanityImageSource } from "@sanity/image-url";
+import { sanityImageBuilder } from "../../lib/util/sanityImageBuilder";
 
 export interface HeadProps {
   siteTitle?: string;
   pageTitle?: string;
   children?: React.ReactNode;
-  seo?: StrapiSeo;
-  favIcon?: string;
+  seo?: SEO;
+  favIcon?: SanityImageSource;
 }
 
 export default function Head({ siteTitle, pageTitle, children, favIcon, seo }: HeadProps) {
@@ -19,17 +19,24 @@ export default function Head({ siteTitle, pageTitle, children, favIcon, seo }: H
 
       {favIcon && (
         <>
-          <link rel="icon" type="image/svg+xml" href={!isProd() ? `${STRAPI_URL}${favIcon}` : favIcon} />
-          <link rel="shortcut icon" href={!isProd() ? `${STRAPI_URL}${favIcon}` : favIcon} />
-          <link rel="apple-touch-icon" href={!isProd() ? `${STRAPI_URL}${favIcon}` : favIcon} />
+          <link rel="icon" type="image/svg+xml" href={sanityImageBuilder(favIcon).url()} />
+          <link rel="shortcut icon" href={sanityImageBuilder(favIcon).url()} />
+          <link rel="apple-touch-icon" href={sanityImageBuilder(favIcon).url()} />
         </>
       )}
 
+      <meta name="charset" content={seo?.metaCharset ? seo.metaCharset : "UTF-8"} />
+      <meta name="language" content={seo?.metaLanguage ? seo.metaLanguage : "en-US"} />
+      <meta name="viewport" content={seo?.metaViewport ? seo.metaViewport : "width=device-width, initial-scale=1"} />
+
+      {seo?.metaAuthor && (
+        <link rel="metaAuthor" href={seo.metaAuthor} />
+      )}
       {seo?.canonicalURL && (
         <link rel="canonical" href={seo.canonicalURL} />
       )}
-      {seo?.keywords && (
-        <meta name="keywords" content={seo.keywords} />
+      {seo?.metaKeywords && seo?.metaKeywords.length > 0 && (
+        <meta name="keywords" content={seo.metaKeywords.join(", ")} />
       )}
       {seo?.metaDescription && (
         <meta name="description" content={seo.metaDescription} />
@@ -40,11 +47,8 @@ export default function Head({ siteTitle, pageTitle, children, favIcon, seo }: H
       {seo?.metaTitle && (
         <meta name="title" content={seo.metaTitle} />
       )}
-      {seo?.metaViewport && (
-        <meta name="viewport" content={seo.metaViewport} />
-      )}
       {seo?.metaImage && (
-        <meta name="image" content={!isProd() ? `${STRAPI_URL}${seo.metaImage.url}` : seo.metaImage.url} />
+        <meta name="image" content={sanityImageBuilder(seo.metaImage).url()} />
       )}
 
       {seo?.openGraph && (
@@ -58,11 +62,11 @@ export default function Head({ siteTitle, pageTitle, children, favIcon, seo }: H
           {seo.openGraph.ogType && (
             <meta property="og:type" content={seo.openGraph.ogType} />
           )}
-          {seo.openGraph.ogURL && (
-            <meta property="og:url" content={seo.openGraph.ogURL} />
+          {seo.openGraph.ogUrl && (
+            <meta property="og:url" content={seo.openGraph.ogUrl} />
           )}
           {seo.openGraph.ogImage && (
-            <meta property="og:image" content={!isProd() ? `${STRAPI_URL}${seo.openGraph.ogImage.url}` : seo.openGraph.ogImage.url} />
+            <meta property="og:image" content={sanityImageBuilder(seo.openGraph.ogImage).url()} />
           )}
         </>
       )}

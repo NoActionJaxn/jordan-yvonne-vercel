@@ -1,6 +1,6 @@
 import { useLoaderData, useRevalidator } from "react-router";
 import Head from "../../components/shared/Head";
-import BlockRendererClient from "../../components/shared/BlockRendererClient";
+import BlockRenderer from "../../components/shared/BlockRenderer";
 import CostumingCard from "../../components/costumes/CostumingCard";
 import MansoryLayout from "../../components/shared/MansoryLayout";
 import DownloadButton from "../../components/shared/DownloadButton";
@@ -50,7 +50,7 @@ export default function CostumingPage() {
               )}
               {costumePage?.description && (
                 <div>
-                  <BlockRendererClient content={costumePage.description} />
+                  <BlockRenderer content={costumePage.description} />
                 </div>
               )}
             </div>

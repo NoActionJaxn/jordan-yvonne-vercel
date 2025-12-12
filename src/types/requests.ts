@@ -1,130 +1,23 @@
-import type { BlocksContent } from "@strapi/blocks-react-renderer";
-import type { StrapiSeo, StrapiAsset, StrapiCallToAction, StrapiMeta } from "./strapi";
+import type { PortableTextBlock } from "@portabletext/react";
+import type { SanityImageSource } from "@sanity/image-url";
+import type { SanitySEO } from "./sanity";
 
-export interface SiteInfo {
-  id: number;
-  documentId: string;
-  createdAt: string;
-  updatedAt: string;
-  publishedAt: string;
-  title?: string;
-  seo?: StrapiSeo;
-  favicon?: StrapiAsset;
-  logo?: StrapiAsset;
-  logo_alt?: StrapiAsset;
-};
-
-export interface Menu {
-  id: number;
-  menu_items: StrapiCallToAction[];
-};
-
-export interface Socials {
-  id: number;
-  menu_items: StrapiCallToAction[];
-};
+export interface SiteSettings {
+  _id: string;
+  _createdAt: string;
+  _updatedAt: string;
+  title: string;
+  logo: SanityImageSource;
+  alternateLogo: SanityImageSource;
+  favicon: SanityImageSource;
+}
 
 export interface LandingPage {
-  id: number;
-  documentId: string;
+  _id: string;
+  _createdAt: string;
+  _updatedAt: string;
   page_title: string;
-  title: string;
-  description?: BlocksContent;
-  createdAt: string;
-  updatedAt: string;
-  publishedAt: string;
-  seo?: StrapiSeo;
-};
-
-export interface CostumePage {
-  id: number;
-  documentId: string;
-  page_title: string;
-  title: string;
-  description?: BlocksContent;
-  resume?: StrapiAsset;
-  createdAt: string;
-  updatedAt: string;
-  publishedAt: string;
-  seo?: StrapiSeo;
-};
-
-export interface CostumeList {
-  data: CostumeItem[];
-  meta: StrapiMeta;
-};
-
-export interface CostumeItem {
-  id: number;
-  documentId: string;
-  title: string
-  slug: string;
-  description?: BlocksContent;
-  media?: StrapiAsset[];
-  createdAt: string;
-  updatedAt: string;
-  publishedAt: string;
-  seo?: StrapiSeo;
-};
-
-export interface ActorPage {
-  id: number;
-  documentId: string;
-  page_title: string;
-  title: string;
-  description?: BlocksContent;
-  resume?: StrapiAsset;
-  createdAt: string;
-  updatedAt: string;
-  publishedAt: string;
-  seo?: StrapiSeo;
-};
-
-export interface ActorList {
-  data: ActorItem[];
-  meta: StrapiMeta;
-};
-
-export interface ActorItem {
-  id: number;
-  documentId: string;
-  title: string
-  slug: string;
-  description?: BlocksContent;
-  media?: StrapiAsset[];
-  createdAt: string;
-  updatedAt: string;
-  publishedAt: string;
-  seo?: StrapiSeo;
-};
-
-export interface IllustratorPage {
-  id: number;
-  documentId: string;
-  page_title: string;
-  title: string;
-  description?: BlocksContent;
-  images?: StrapiAsset[];
-  createdAt: string;
-  updatedAt: string;
-  publishedAt: string;
-  seo?: StrapiSeo;
-};
-
-export interface IllustrationItem {
-  id: number;
-  documentId: string;
-  title: string;
-  slug: string;
-  description?: BlocksContent;
-  images?: StrapiAsset[];
-  createdAt: string;
-  updatedAt: string;
-  publishedAt: string;
-  seo?: StrapiSeo;
-};
-
-export interface IllustrationList {
-  data: IllustrationItem[];
-  meta: StrapiMeta;
-};
+  description: PortableTextBlock[];
+  seo: SanitySEO;
+  favicon: SanityImageSource
+}

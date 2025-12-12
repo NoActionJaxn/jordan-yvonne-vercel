@@ -12,55 +12,65 @@ import ActingItemPage from './pages/acting/slug';
 import ArtItemPage from './pages/art/slug';
 import Error from './components/ui/Error';
 import {
-  actorPageLoader,
-  costumeItemLoader,
-  costumePageLoader,
-  defaultLayoutLoader,
-  illustratorPageLoader,
-  illustrationItemLoader,
-  landingPageLoader,
-  actorItemLoader
-} from './lib/loaders';
+  fetchDefaultSEO,
+  fetchLandingPage,
+  fetchMenuItems,
+  fetchSiteSettings,
+  fetchSocialLinks
+} from './lib/requests';
 
 const router = createBrowserRouter([
   {
     Component: DefaultLayout,
-    loader: defaultLayoutLoader,
+    loader: async () => {
+      return {
+        menu: await fetchMenuItems(),
+        socials: await fetchSocialLinks(),
+        seo: await fetchDefaultSEO(),
+        settings: await fetchSiteSettings(),
+      }
+    },
     children: [
       {
         Component: IndexPage,
         path: '/',
-        loader: landingPageLoader,
+        loader: async () => {
+          return {
+            rootSeo: await fetchDefaultSEO(),
+            page: await fetchLandingPage(),
+            settings: await fetchSiteSettings(),
+          };
+        },
       },
       {
         Component: CostumingPage,
         path: '/costuming',
-        loader: costumePageLoader,
+        loader: () => null,
       },
       {
         Component: CostumeItemPage,
         path: '/costuming/:slug',
-        loader: costumeItemLoader,
+        loader: () => null,
       },
       {
         Component: ActingPage,
         path: '/acting',
-        loader: actorPageLoader,
+        loader: () => null,
       },
       {
         Component: ActingItemPage,
         path: '/acting/:slug',
-        loader: actorItemLoader,
+        loader: () => null,
       },
       {
         Component: ArtPage,
         path: '/art',
-        loader: illustratorPageLoader,
+        loader: () => null,
       },
       {
         Component: ArtItemPage,
         path: '/art/:slug',
-        loader: illustrationItemLoader,
+        loader: () => null,
       },
     ],
     errorElement: <Error />,

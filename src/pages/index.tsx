@@ -1,28 +1,36 @@
-import { useLoaderData } from "react-router";
 import Head from "../components/shared/Head";
-import type { LandingPageData } from "../types/loaders";
-import BlockRendererClient from "../components/shared/BlockRendererClient";
-import type { StrapiSeo } from "../types/strapi";
+import mergeSeo from "../lib/util/mergeSeo";
+import { useLoaderData } from "react-router";
+import BlockRenderer from "../components/shared/BlockRenderer";
+import type { SanitySEO } from "../types/sanity";
+import type { LandingPage, SiteSettings } from "../types/requests";
+
+interface LoaderData {
+  settings: SiteSettings;
+  rootSeo: SanitySEO;
+  page?: LandingPage;
+}
 
 export default function IndexPage() {
   const {
-    siteInfo,
-    landingPage,
-  } = useLoaderData<LandingPageData>();
+    rootSeo,
+    page,
+    settings,
+  } = useLoaderData<LoaderData>();
 
-  const mergedSeo = {
-    ...siteInfo?.seo,
-    ...landingPage?.seo,
-  } as StrapiSeo;
+  const seo = mergeSeo(
+    rootSeo,
+    page?.seo,
+  );
 
   return (
     <>
-    <Head siteTitle={siteInfo?.title} pageTitle={landingPage?.page_title} seo={mergedSeo} />
+      <Head siteTitle={settings?.title} pageTitle={page?.page_title} seo={seo} />
       <div className="text-center pb-10">
-        {landingPage?.description && (
-          <BlockRendererClient content={landingPage.description} />
+        {page?.description && (
+          <BlockRenderer content={page.description} />
         )}
       </div>
     </>
-  )
+  );
 }

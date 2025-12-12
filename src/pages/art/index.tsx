@@ -1,6 +1,6 @@
 import { useLoaderData, useRevalidator } from "react-router";
 import Head from "../../components/shared/Head";
-import BlockRendererClient from "../../components/shared/BlockRendererClient";
+import BlockRenderer from "../../components/shared/BlockRenderer";
 import { Heading } from "../../components/ui/Typeography";
 import MansoryLayout from "../../components/shared/MansoryLayout";
 import ArtCard from "../../components/art/ArtCard";
@@ -43,7 +43,7 @@ export default function ArtPage() {
               )}
               {illustratorPage?.description && (
                 <div>
-                  <BlockRendererClient content={illustratorPage.description} />
+                  <BlockRenderer content={illustratorPage.description} />
                 </div>
               )}
             </div>

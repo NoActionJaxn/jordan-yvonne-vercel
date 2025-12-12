@@ -3,13 +3,14 @@ import { AnimatePresence, motion } from "motion/react";
 import { Link, useLocation } from "react-router";
 import classNames from "classnames";
 import Image from "../ui/Image";
-import type { StrapiCallToAction } from "../../types/strapi";
 import MenuButton from "./MenuButton";
 import { Heading } from "../ui/Typeography";
+import type { SanityImageSource } from "@sanity/image-url";
+import type { SanityCallToAction } from "../../types/sanity";
 
 export interface PageHeaderProps {
-  logo?: string;
-  menu?: StrapiCallToAction[];
+  logo?: SanityImageSource;
+  menu?: SanityCallToAction[];
   condensed?: boolean;
 }
 
@@ -51,7 +52,7 @@ export default function PageHeader({ logo, menu, condensed }: PageHeaderProps) {
           <ul className="space-x-4 space-y-4 sm:flex inline">
             {menu?.map((item, i) => (
               <>
-                <li key={item.id}>
+                <li key={item._key}>
                   <Link to={{
                     pathname: item.url
                   }}
@@ -92,8 +93,8 @@ export default function PageHeader({ logo, menu, condensed }: PageHeaderProps) {
               <Heading level={2} className="font-cursive!">Menu</Heading>
               <div className="flex flex-col items-center">
                 <ul className="space-y-4">
-                  {menu?.map((item) => (
-                    <li key={item.id}>
+                  {menu?.map((item, i) => (
+                    <li key={item._key}>
                       <Link
                         to={{ pathname: item.url }}
                         onClick={handleCloseMenu}

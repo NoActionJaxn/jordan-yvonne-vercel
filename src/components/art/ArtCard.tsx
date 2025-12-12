@@ -1,7 +1,7 @@
 import { Link } from "react-router";
 import Image from "../ui/Image";
 import type { BlocksContent } from "@strapi/blocks-react-renderer";
-import BlockRendererClient from "../shared/BlockRendererClient";
+import BlockRenderer from "../shared/BlockRenderer";
 import { formatDate } from "../../lib/util/formatDate";
 
 interface ArtCardProps {
@@ -48,7 +48,7 @@ export default function ArtCard({
             <h3 className="text-xl font-serif font-bold capitalize">{title}</h3>
             {descText && (
               <div className="line-clamp-3 h-16">
-                <BlockRendererClient className="text-sm" content={descText} styless />
+                <BlockRenderer className="text-sm" content={descText} styless />
               </div>
             )}
           </div>

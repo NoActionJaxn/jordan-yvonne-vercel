@@ -1,6 +1,6 @@
 import { useLoaderData } from "react-router";
 import Head from "../../components/shared/Head";
-import BlockRendererClient from "../../components/shared/BlockRendererClient";
+import BlockRenderer from "../../components/shared/BlockRenderer";
 import { Heading } from "../../components/ui/Typeography";
 import MansoryLayout from "../../components/shared/MansoryLayout";
 import ActingCard from "../../components/acting/ActingCard";
@@ -45,7 +45,7 @@ export default function ActingPage() {
               )}
               {actorPage?.description && (
                 <div>
-                  <BlockRendererClient content={actorPage.description} />
+                  <BlockRenderer content={actorPage.description} />
                 </div>
               )}
             </div>

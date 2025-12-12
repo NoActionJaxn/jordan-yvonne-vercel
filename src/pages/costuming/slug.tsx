@@ -1,6 +1,6 @@
 import { useLoaderData } from "react-router";
 import Head from "../../components/shared/Head";
-import BlockRendererClient from "../../components/shared/BlockRendererClient";
+import BlockRenderer from "../../components/shared/BlockRenderer";
 import { Heading } from "../../components/ui/Typeography";
 import MediaGallery from "../../components/ui/MediaGallery";
 import type { StrapiSeo } from "../../types/strapi";
@@ -34,7 +34,7 @@ export default function CostumeItemPage() {
           </div>
         )}
         {costumeItem?.description && (
-          <BlockRendererClient content={costumeItem.description} />
+          <BlockRenderer content={costumeItem.description} />
         )}
         {costumeItem?.media && costumeItem.media.length > 0 && (
           <MediaGallery items={mediaItems} />

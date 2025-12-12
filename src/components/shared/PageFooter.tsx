@@ -1,8 +1,8 @@
 import classNames from "classnames"
-import type { StrapiCallToAction } from "../../types/strapi"
+import type { SanityCallToAction } from "../../types/sanity";
 
 export interface PageFooterProps {
-  socials?: StrapiCallToAction[];
+  socials?: SanityCallToAction[];
   condensed?: boolean;
 }
 
@@ -33,14 +33,14 @@ export default function PageFooter({ socials, condensed }: PageFooterProps) {
               )}
             >
               {socials?.map((item) => (
-                <li key={item.id} className="inline">
+                <li key={item._key} className="inline">
                   <a
                     href={item.url}
                     referrerPolicy="no-referrer"
                     target="_blank"
                     className={classNames(condensed ? "text-2xl" : "text-4xl")}
                   >
-                    <i className={classNames(item.icon?.name, item.icon?.pack)} />
+                    <i className={classNames(item.icon?.iconName, item.icon?.iconStyle)} />
                     <span className="sr-only">{item.label}</span>
                   </a>
                 </li>
