@@ -1,14 +1,14 @@
 import { Helmet } from "@dr.pogodin/react-helmet";
 import { titleBuilder } from "../../lib/titleBuilder";
-import type { SEO } from "../../types/seo";
 import type { SanityImageSource } from "@sanity/image-url";
 import { imageBuilder } from "../../lib/util/imageBuilder";
+import type { SanitySEO } from "../../types/sanity";
 
 export interface HeadProps {
   siteTitle?: string;
   pageTitle?: string;
   children?: React.ReactNode;
-  seo?: SEO;
+  seo?: SanitySEO;
   favIcon?: SanityImageSource;
 }
 

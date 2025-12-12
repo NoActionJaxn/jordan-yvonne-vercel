@@ -25,7 +25,7 @@ export default function IndexPage() {
 
   return (
     <>
-      <Head siteTitle={settings?.title} pageTitle={page?.page_title} seo={seo} />
+      <Head siteTitle={settings?.title} pageTitle={page?.pageTitle} seo={seo} />
       <div className="text-center pb-10 px-10 sm:px-2 max-w-7xl mx-auto">
         {page?.description && (
           <BlockRenderer content={page.description} />
