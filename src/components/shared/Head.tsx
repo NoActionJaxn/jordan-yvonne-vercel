@@ -14,6 +14,8 @@ export interface HeadProps {
 
 export default function Head({ siteTitle, pageTitle, children, favIcon, seo }: HeadProps) {
 
+  console.log("HEAD SEO:", seo);
+
   return (
     <Helmet>
       <title>{titleBuilder({ siteTitle, pageTitle })}</title>
