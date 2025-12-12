@@ -41,7 +41,8 @@ export function mergeSeo(
 
   // Merge top-level SEO fields
   const merged = sources.reduce<Partial<SanitySEO>>((acc, src) => {
-    const { openGraph, ...rest } = src;
+    delete src?.openGraph;
+    const { ...rest } = src;
     const filtered = Object.fromEntries(
       Object.entries(rest).filter(([, v]) => v !== undefined && v !== null && v !== "")
     );
