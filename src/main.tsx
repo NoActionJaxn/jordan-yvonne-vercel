@@ -21,7 +21,17 @@ import {
   fetchLandingPage,
   fetchMenuItems,
   fetchSiteSettings,
-  fetchSocialLinks
+  fetchSocialLinks,
+  fetchActingPage,
+  fetchActingPageSEO,
+  fetchActors,
+  fetchActorCount,
+  fetchActorBySlug,
+  fetchIllustrationPage,
+  fetchIllustrationPageSEO,
+  fetchIllustrations,
+  fetchIllustrationCount,
+  fetchIllustrationBySlug
 } from './lib/requests';
 
 const router = createBrowserRouter([
@@ -75,22 +85,52 @@ const router = createBrowserRouter([
       {
         Component: ActingPage,
         path: '/acting',
-        loader: () => null,
+        loader: async () => {
+          return {
+            rootSeo: await fetchDefaultSEO(),
+            page: await fetchActingPage(),
+            actors: await fetchActors(),
+            totalActors: await fetchActorCount(),
+            settings: await fetchSiteSettings(),
+          };
+        },
       },
       {
         Component: ActingItemPage,
         path: '/acting/:slug',
-        loader: () => null,
+        loader: async ({ params }) => {
+          return {
+            rootSeo: await fetchDefaultSEO(),
+            actingSeo: await fetchActingPageSEO(),
+            page: await fetchActorBySlug(params?.slug ?? ""),
+            settings: await fetchSiteSettings(),
+          };
+        },
       },
       {
         Component: ArtPage,
         path: '/art',
-        loader: () => null,
+        loader: async () => {
+          return {
+            rootSeo: await fetchDefaultSEO(),
+            page: await fetchIllustrationPage(),
+            illustrations: await fetchIllustrations(),
+            totalIllustrations: await fetchIllustrationCount(),
+            settings: await fetchSiteSettings(),
+          };
+        },
       },
       {
         Component: ArtItemPage,
         path: '/art/:slug',
-        loader: () => null,
+        loader: async ({ params }) => {
+          return {
+            rootSeo: await fetchDefaultSEO(),
+            illustrationSeo: await fetchIllustrationPageSEO(),
+            page: await fetchIllustrationBySlug(params?.slug ?? ""),
+            settings: await fetchSiteSettings(),
+          };
+        },
       },
     ],
     errorElement: <Error />,

@@ -3,38 +3,41 @@ import Head from "../../components/shared/Head";
 import BlockRenderer from "../../components/shared/BlockRenderer";
 import { Heading } from "../../components/ui/Typeography";
 import MediaGallery from "../../components/ui/MediaGallery";
-import type { StrapiSeo } from "../../types/strapi";
-import type { IllustrationItemPageData } from "../../types/loaders";
+import type { SanitySEO } from "../../types/sanity";
+import type { Illustration, SiteSettings } from "../../types/requests";
+import { mergeSeo } from "../../lib/util/mergeSeo";
+
+interface LoaderData {
+  rootSeo: SanitySEO;
+  illustrationSeo: SanitySEO;
+  page: Illustration;
+  settings: SiteSettings;
+}
 
 export default function ArtItemPage() {
-  const { siteInfo, illustrationItem } = useLoaderData<IllustrationItemPageData>();
+  const {
+    rootSeo,
+    illustrationSeo,
+    page,
+    settings
+  } = useLoaderData<LoaderData>();
 
-  const mergedSeo = {
-    ...siteInfo?.seo,
-    ...illustrationItem?.seo,
-  } as StrapiSeo;
-
-  const mediaItems = (illustrationItem?.images ?? []).map(item => ({
-    url: item.url,
-    mime: item.mime,
-    alt: item.alternativeText,
-    poster: item.previewUrl,
-  }));
+  const seo = mergeSeo(rootSeo, illustrationSeo, page?.seo);
 
   return (
     <>
-      <Head siteTitle={siteInfo?.title} pageTitle={illustrationItem?.title} seo={mergedSeo} />
+      <Head siteTitle={settings?.title} pageTitle={page?.title} seo={seo} />
       <main className="px-15 py-10 space-y-10">
-        {illustrationItem?.title && (
+        {page?.title && (
           <div className="text-center">
-            <Heading>{illustrationItem.title}</Heading>
+            <Heading>{page.title}</Heading>
           </div>
         )}
-        {illustrationItem?.description && (
-          <BlockRenderer content={illustrationItem.description} />
+        {page?.description && (
+          <BlockRenderer content={page.description} />
         )}
-        {illustrationItem?.images && illustrationItem.images.length > 0 && (
-          <MediaGallery items={mediaItems} />
+        {page?.galleryImages && page.galleryImages.length > 0 && (
+          <MediaGallery items={page.galleryImages} />
         )}
       </main>
     </>

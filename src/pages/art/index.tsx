@@ -5,45 +5,59 @@ import { Heading } from "../../components/ui/Typeography";
 import MansoryLayout from "../../components/shared/MansoryLayout";
 import ArtCard from "../../components/art/ArtCard";
 import useSetPageCountParam from "../../hooks/useSetPageCountParam";
-import type { IllustratorPageData } from "../../types/loaders";
-import type { StrapiSeo } from "../../types/strapi";
+import { mergeSeo } from "../../lib/util/mergeSeo";
+import type { SiteSettings, IllustrationPage, Illustration } from "../../types/requests";
+import type { SanitySEO } from "../../types/sanity";
+
+interface LoaderData {
+  settings: SiteSettings;
+  rootSeo: SanitySEO;
+  illustrations: Illustration[];
+  totalIllustrations: number;
+  page?: IllustrationPage;
+}
 
 export default function ArtPage() {
-  const { siteInfo, illustratorPage, illustrationsList } = useLoaderData<IllustratorPageData>();
+  const {
+    settings,
+    rootSeo,
+    illustrations,
+    totalIllustrations,
+    page,
+  } = useLoaderData<LoaderData>();
+
   const { state: revalidatorState } = useRevalidator();
+
   const isRefetching = revalidatorState === "loading";
 
-  const mergedSeo = {
-    ...siteInfo?.seo,
-    ...illustratorPage?.seo,
-  } as StrapiSeo;
+  const seo = mergeSeo(rootSeo, page?.seo);
 
-  const items = (illustrationsList?.data ?? []).map((item) => ({
-    date: item.publishedAt,
-    title: item.title,
-    slug: item.slug,
-    thumb: item.images?.[0]?.url,
-    alt: item.images?.[0]?.alternativeText || item.title,
-    descText: item.description,
+  const items = (illustrations ?? []).map((illustration) => ({
+    date: illustration?._publishedAt,
+    title: illustration?.title,
+    slug: illustration?.slug.current,
+    thumb: illustration?.galleryImages?.[0],
+    alt: illustration?.title,
+    descText: illustration?.description,
   }));
 
-  useSetPageCountParam({ meta: illustrationsList?.meta });
+  useSetPageCountParam({ max: totalIllustrations, limit: 5 });
 
   return (
     <>
-      <Head siteTitle={siteInfo?.title} pageTitle={illustratorPage?.page_title} seo={mergedSeo} />
+      <Head siteTitle={settings?.title} pageTitle={page?.pageTitle} seo={seo} />
       <div className="px-16">
         <div className="grid grid-cols-3 gap-10">
           <aside className="grid grid-cols-3 col-span-3 lg:col-span-1 lg:sticky space-y-5 relative top-20 self-start">
             <div className="col-span-3 md:col-span-2 lg:col-span-3 space-y-5">
-              {illustratorPage?.title && (
+              {page && (
                 <div>
-                  <Heading>{illustratorPage.title}</Heading>
+                  <Heading>{page.title}</Heading>
                 </div>
               )}
-              {illustratorPage?.description && (
+              {page?.description && (
                 <div>
-                  <BlockRenderer content={illustratorPage.description} />
+                  <BlockRenderer content={page.description} />
                 </div>
               )}
             </div>

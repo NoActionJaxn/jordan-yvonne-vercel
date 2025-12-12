@@ -6,7 +6,6 @@ import MediaGallery from "../../components/ui/MediaGallery";
 import type { SanitySEO } from "../../types/sanity";
 import type { Costume, SiteSettings } from "../../types/requests";
 import { mergeSeo } from "../../lib/util/mergeSeo";
-import { imageBuilder } from "../../lib/util/imageBuilder";
 
 interface LoaderData {
   rootSeo: SanitySEO;
@@ -25,18 +24,6 @@ export default function CostumeItemPage() {
 
   const seo = mergeSeo(rootSeo, costumeSeo, page?.seo);
 
-  const mediaItems = (page.galleryImages ?? []).map(image => {
-    const sanityImage = imageBuilder(image)
-    const source = sanityImage.options.source as { _type?: string } | undefined;
-
-    return {
-      url: sanityImage.url(),
-      mime: source?._type ?? 'image/jpeg',
-      alt: "Gallery image for " + (page?.title ?? ""),
-      thumb: sanityImage.width(400).url(),
-    }
-  });
-
   return (
     <>
       <Head siteTitle={settings?.title} pageTitle={page?.title} seo={seo} />
@@ -50,7 +37,7 @@ export default function CostumeItemPage() {
           <BlockRenderer content={page.description} />
         )}
         {page?.galleryImages && page.galleryImages.length > 0 && (
-          <MediaGallery items={mediaItems} />
+          <MediaGallery items={page.galleryImages} />
         )}
       </main>
     </>

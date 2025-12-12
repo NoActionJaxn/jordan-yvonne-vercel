@@ -44,3 +44,46 @@ export interface Costume {
   galleryImages: SanityImageSource[];
   seo: SanitySEO;
 }
+
+export interface ActingPage {
+  _id: string;
+  _createdAt: string;
+  _updatedAt: string;
+  title: string;
+  pageTitle: string;
+  description: PortableTextBlock[];
+  resumeFile: SanityFileSource;
+  seo: SanitySEO;
+}
+
+export interface Actor {
+  _id: string;
+  _createdAt: string;
+  _publishedAt: string;
+  title: string;
+  slug: SanitySlug;
+  description: PortableTextBlock[];
+  galleryImages: SanityImageSource[];
+  seo: SanitySEO;
+}
+
+export interface IllustrationPage {
+  _id: string;
+  _createdAt: string;
+  _updatedAt: string;
+  title: string;
+  pageTitle: string;
+  description: PortableTextBlock[];
+  seo: SanitySEO;
+}
+
+export interface Illustration {
+  _id: string;
+  _createdAt: string;
+  _publishedAt: string;
+  title: string;
+  slug: SanitySlug;
+  description: PortableTextBlock[];
+  galleryImages: SanityImageSource[];
+  seo: SanitySEO;
+}

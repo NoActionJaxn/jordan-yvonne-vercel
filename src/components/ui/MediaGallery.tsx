@@ -1,22 +1,12 @@
 import classNames from "classnames";
 import Image from "./Image";
-import { STRAPI_URL } from "../../constants/strapi";
-import Video from "./Video";
 import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import useOutsideClick from "../../hooks/useOutsideClick";
-
-export interface MediaItem {
-  url: string;
-  mime: string;
-  alt?: string;
-  poster?: string;
-  width?: number;
-  height?: number;
-}
+import type { SanityImageSource } from "@sanity/image-url";
 
 export interface MediaGalleryProps {
-  items: MediaItem[];
+  items: SanityImageSource[];
   className?: string;
   columns?: {
     base?: number;
@@ -73,54 +63,20 @@ export default function MediaGallery({ items, className, columns }: MediaGallery
         className
       )}
     >
-      {items.map((item, idx) => {
-        const isImage = item.mime.startsWith("image/");
-        const isVideo = item.mime.startsWith("video/");
-
-        return (
-          <figure
-            key={`${item.url}-${idx}`}
-            className="relative flex items-center justify-center overflow-hidden rounded-2xl aspect-square bg-black cursor-pointer"
-            onClick={() => setActiveIndex(idx)}
-          >
-            {isImage && (
-              <Image
-                src={item.url}
-                alt={item.alt ?? ""}
-                className="w-full h-full object-cover"
-                loading="lazy"
-              />
-            )}
-            {isVideo && (
-              item.poster ? (
-                <Image
-                  src={item.poster}
-                  alt={item.alt ?? ""}
-                  className="w-full h-full object-cover"
-                  width={item.width}
-                  height={item.height}
-                  loading="lazy"
-                />
-              ) : (
-                <div className="relative">
-                  <Video
-                    src={`${STRAPI_URL}${item.url}`}
-                    preload="none"
-                    className="w-full h-full object-cover"
-                    controls={false}
-                  />
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <span className="bg-white/40 text-white rounded-full size-15 flex items-center justify-center">
-                      <i className="fa-solid fa-play text-2xl"></i>
-                      <span className="sr-only">Play Video</span>
-                    </span>
-                  </div>
-                </div>
-              )
-            )}
-          </figure>
-        );
-      })}
+      {items.map((item, idx) => (
+        <figure
+          key={idx}
+          className="relative flex items-center justify-center overflow-hidden rounded-2xl aspect-square bg-black cursor-pointer"
+          onClick={() => setActiveIndex(idx)}
+        >
+          <Image
+            src={item}
+            alt="Image"
+            className="w-full h-full object-cover"
+            loading="lazy"
+          />
+        </figure>
+      ))}
 
       <AnimatePresence>
         {activeItem && (
@@ -141,22 +97,11 @@ export default function MediaGallery({ items, className, columns }: MediaGallery
               className="relative max-w-6xl w-full"
               onClick={(e) => e.stopPropagation()}
             >
-              {activeItem.mime.startsWith("image/") && (
-                <Image
-                  src={activeItem.url}
-                  alt={activeItem.alt ?? ""}
-                  className="w-full h-auto object-contain rounded-md"
-                />
-              )}
-              {activeItem.mime.startsWith("video/") && (
-                <Video
-                  src={`${STRAPI_URL}${activeItem.url}`}
-                  poster={activeItem.poster}
-                  controls
-                  preload="metadata"
-                  className="w-full h-auto rounded-md"
-                />
-              )}
+              <Image
+                src={activeItem}
+                alt=""
+                className="w-full h-auto object-contain rounded-md"
+              />
               <button
                 onClick={() => setActiveIndex(null)}
                 className="pointer-cursor absolute -top-7 -right-7 bg-amber-900 text-amber-100 hover:bg-amber-700 transition-colors rounded-full size-15 flex items-center justify-center"
