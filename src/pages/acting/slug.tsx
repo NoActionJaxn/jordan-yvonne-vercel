@@ -34,7 +34,7 @@ export default function ActorItemPage() {
           </div>
         )}
         {page?.description && (
-          <BlockRenderer content={page.description} />
+          <BlockRenderer content={page.description} withStyles />
         )}
         {page?.galleryImages && page.galleryImages.length > 0 && (
           <MediaGallery items={page.galleryImages} />

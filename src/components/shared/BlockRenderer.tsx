@@ -43,7 +43,7 @@ export default function BlockRenderer({
 }: BlockRendererProps) {
   return (
     <div className={className}>
-      <PortableText value={content} components={withStyles ? {} : styledComponents} />
+      <PortableText value={content} components={withStyles ? styledComponents : {}} />
     </div>
   );
 }

@@ -1,7 +1,7 @@
 import { Link } from "react-router";
 import Image from "../ui/Image";
-import BlockRenderer from "../shared/BlockRenderer";
 import { formatDate } from "../../lib/util/formatDate";
+import { portableTextToText } from "../../lib/util/portableTextToText";
 import type { SanityImageSource } from "@sanity/image-url";
 import type { PortableTextBlock } from "@portabletext/react";
 
@@ -49,7 +49,7 @@ export default function ArtCard({
             <h3 className="text-xl font-serif font-bold capitalize">{title}</h3>
             {descText && (
               <div className="line-clamp-3 h-16">
-                <BlockRenderer className="text-sm" content={descText} withStyles={false} />
+                <p className="text-sm">{portableTextToText(descText)}</p>
               </div>
             )}
           </div>

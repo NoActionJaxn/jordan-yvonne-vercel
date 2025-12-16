@@ -23,7 +23,7 @@ export default function CostumeItemPage() {
   } = useLoaderData<LoaderData>();
 
   const seo = mergeSeo(rootSeo, costumeSeo, page?.seo);
-
+  console.log(page);
   return (
     <>
       <Head siteTitle={settings?.title} pageTitle={page?.title} seo={seo} />
@@ -34,7 +34,7 @@ export default function CostumeItemPage() {
           </div>
         )}
         {page?.description && (
-          <BlockRenderer content={page.description} />
+          <BlockRenderer content={page.description} withStyles />
         )}
         {page?.galleryImages && page.galleryImages.length > 0 && (
           <MediaGallery items={page.galleryImages} />
