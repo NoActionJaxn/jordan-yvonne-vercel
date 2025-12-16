@@ -43,7 +43,7 @@ export default function PageHeader({ logo, menu, condensed }: PageHeaderProps) {
               condensed ? "w-3xs" : "w-xs",
               "transition-all duration-300 ease-in-out"
             )}
-            alt="Logo"
+            alt="Jordan Yvonne"
           />
         </Link>
       </div>

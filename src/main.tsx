@@ -11,6 +11,7 @@ import CostumeItemPage from './pages/costuming/slug';
 import ActingItemPage from './pages/acting/slug';
 import ArtItemPage from './pages/art/slug';
 import Error from './components/ui/Error';
+import Preloader from './components/ui/Preloader';
 import {
   fetchCostumeBySlug,
   fetchCostumeCount,
@@ -134,7 +135,7 @@ const router = createBrowserRouter([
       },
     ],
     errorElement: <Error />,
-    HydrateFallback: () => <div className="min-h-screen bg-amber-50" />,
+    HydrateFallback: () => <Preloader />,
   }
 ]);
 
