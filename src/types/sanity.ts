@@ -28,18 +28,8 @@ export interface SanitySEO {
   metaRobots?: string;
   metaTitle?: string;
   metaViewport?: string;
-  openGraph?: SanityOpenGraph;
+  type?: string;
   structuredData?: JSON;
-}
-
-export interface SanityOpenGraph {
-  _type: string;
-  ogDescription?: string;
-  ogImage?: SanityImageSource;
-  ogSiteName?: string;
-  ogTitle?: string;
-  ogType?: string;
-  ogUrl?: string;
 }
 
 export interface SanitySlug {
