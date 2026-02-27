@@ -51,10 +51,10 @@ export async function fetchCostumePage() {
 
 export async function fetchCostumes() {
   const url = new URLSearchParams(window.location.search);
-  const pageCount = Math.max(1, Number(url?.get("pageCount") ?? "1"));
+  const page = Math.max(1, Number(url?.get("page") ?? "1"));
   const limit = Math.max(1, Number(url?.get("limit") ?? "5"))
 
-  return await client.fetch<Costume[]>(COSTUMES_QUERY, { limit: pageCount * limit }).catch(handleRequestError);
+  return await client.fetch<Costume[]>(COSTUMES_QUERY, { limit: page * limit }).catch(handleRequestError);
 }
 
 export async function fetchCostumeCount() {
@@ -76,10 +76,10 @@ export async function fetchActingPage() {
 
 export async function fetchActors() {
   const url = new URLSearchParams(window.location.search);
-  const pageCount = Math.max(1, Number(url?.get("pageCount") ?? "1"));
+  const page = Math.max(1, Number(url?.get("page") ?? "1"));
   const limit = Math.max(1, Number(url?.get("limit") ?? "5"));
 
-  return await client.fetch<Actor[]>(ACTORS_QUERY, { limit: pageCount * limit }).catch(handleRequestError);
+  return await client.fetch<Actor[]>(ACTORS_QUERY, { limit: page * limit }).catch(handleRequestError);
 }
 
 export async function fetchActorCount() {
@@ -101,10 +101,10 @@ export async function fetchIllustrationPage() {
 
 export async function fetchIllustrations() {
   const url = new URLSearchParams(window.location.search);
-  const pageCount = Math.max(1, Number(url?.get("pageCount") ?? "1"));
+  const page = Math.max(1, Number(url?.get("page") ?? "1"));
   const limit = Math.max(1, Number(url?.get("limit") ?? "5"));
 
-  return await client.fetch<Illustration[]>(ILLUSTRATIONS_QUERY, { limit: pageCount * limit }).catch(handleRequestError);
+  return await client.fetch<Illustration[]>(ILLUSTRATIONS_QUERY, { limit: page * limit }).catch(handleRequestError);
 }
 
 export async function fetchIllustrationCount() {
