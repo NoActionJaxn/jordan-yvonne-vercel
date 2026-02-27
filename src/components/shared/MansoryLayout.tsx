@@ -39,7 +39,7 @@ export default function MansoryLayout<P extends object>({
   }, [list]);
 
   useEffect(() => {
-    return () => sortLists();
+    sortLists();
   }, [list, sortLists]);
 
   const getDelay = useMemo(
