@@ -1,0 +1,211 @@
+{
+  "buildManifest": {
+    "serverBundles": {
+      "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0": {
+        "id": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
+        "file": "build/server/nodejs_eyJydW50aW1lIjoibm9kZWpzIn0/index.js",
+        "config": {
+          "runtime": "nodejs"
+        }
+      }
+    },
+    "routeIdToServerBundleId": {
+      "root": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
+      "routes/home": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
+      "routes/costuming": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
+      "routes/costuming-slug": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
+      "routes/acting": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
+      "routes/acting-slug": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
+      "routes/art": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
+      "routes/art-slug": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0"
+    },
+    "routes": {
+      "root": {
+        "id": "root",
+        "file": "app/root.tsx",
+        "path": "",
+        "config": {
+          "runtime": "nodejs"
+        }
+      },
+      "routes/layout": {
+        "id": "routes/layout",
+        "parentId": "root",
+        "file": "app/routes/layout.tsx",
+        "config": {}
+      },
+      "routes/home": {
+        "id": "routes/home",
+        "parentId": "routes/layout",
+        "file": "app/routes/home.tsx",
+        "path": "/",
+        "config": {}
+      },
+      "routes/costuming": {
+        "id": "routes/costuming",
+        "parentId": "routes/layout",
+        "file": "app/routes/costuming.tsx",
+        "path": "costuming",
+        "config": {}
+      },
+      "routes/costuming-slug": {
+        "id": "routes/costuming-slug",
+        "parentId": "routes/layout",
+        "file": "app/routes/costuming-slug.tsx",
+        "path": "costuming/:slug",
+        "config": {}
+      },
+      "routes/acting": {
+        "id": "routes/acting",
+        "parentId": "routes/layout",
+        "file": "app/routes/acting.tsx",
+        "path": "acting",
+        "config": {}
+      },
+      "routes/acting-slug": {
+        "id": "routes/acting-slug",
+        "parentId": "routes/layout",
+        "file": "app/routes/acting-slug.tsx",
+        "path": "acting/:slug",
+        "config": {}
+      },
+      "routes/art": {
+        "id": "routes/art",
+        "parentId": "routes/layout",
+        "file": "app/routes/art.tsx",
+        "path": "art",
+        "config": {}
+      },
+      "routes/art-slug": {
+        "id": "routes/art-slug",
+        "parentId": "routes/layout",
+        "file": "app/routes/art-slug.tsx",
+        "path": "art/:slug",
+        "config": {}
+      }
+    }
+  },
+  "reactRouterConfig": {
+    "appDirectory": "/home/jacksonhermitt/jordan-yvonne/app",
+    "basename": "/",
+    "buildDirectory": "/home/jacksonhermitt/jordan-yvonne/build",
+    "future": {
+      "unstable_optimizeDeps": false,
+      "unstable_subResourceIntegrity": false,
+      "unstable_trailingSlashAwareDataRequests": false,
+      "unstable_previewServerPrerendering": false,
+      "v8_middleware": false,
+      "v8_splitRouteModules": false,
+      "v8_viteEnvironmentApi": false
+    },
+    "routes": {
+      "root": {
+        "id": "root",
+        "file": "root.tsx",
+        "path": ""
+      },
+      "routes/layout": {
+        "id": "routes/layout",
+        "parentId": "root",
+        "file": "routes/layout.tsx"
+      },
+      "routes/home": {
+        "id": "routes/home",
+        "parentId": "routes/layout",
+        "file": "routes/home.tsx",
+        "path": "/"
+      },
+      "routes/costuming": {
+        "id": "routes/costuming",
+        "parentId": "routes/layout",
+        "file": "routes/costuming.tsx",
+        "path": "costuming"
+      },
+      "routes/costuming-slug": {
+        "id": "routes/costuming-slug",
+        "parentId": "routes/layout",
+        "file": "routes/costuming-slug.tsx",
+        "path": "costuming/:slug"
+      },
+      "routes/acting": {
+        "id": "routes/acting",
+        "parentId": "routes/layout",
+        "file": "routes/acting.tsx",
+        "path": "acting"
+      },
+      "routes/acting-slug": {
+        "id": "routes/acting-slug",
+        "parentId": "routes/layout",
+        "file": "routes/acting-slug.tsx",
+        "path": "acting/:slug"
+      },
+      "routes/art": {
+        "id": "routes/art",
+        "parentId": "routes/layout",
+        "file": "routes/art.tsx",
+        "path": "art"
+      },
+      "routes/art-slug": {
+        "id": "routes/art-slug",
+        "parentId": "routes/layout",
+        "file": "routes/art-slug.tsx",
+        "path": "art/:slug"
+      }
+    },
+    "routeDiscovery": {
+      "mode": "lazy",
+      "manifestPath": "/__manifest"
+    },
+    "serverBuildFile": "index.js",
+    "serverModuleFormat": "esm",
+    "ssr": true,
+    "allowedActionOrigins": false,
+    "unstable_routeConfig": [
+      {
+        "id": "root",
+        "path": "",
+        "file": "root.tsx",
+        "children": [
+          {
+            "file": "routes/layout.tsx",
+            "children": [
+              {
+                "file": "routes/home.tsx",
+                "path": "/"
+              },
+              {
+                "file": "routes/costuming.tsx",
+                "path": "costuming"
+              },
+              {
+                "file": "routes/costuming-slug.tsx",
+                "path": "costuming/:slug"
+              },
+              {
+                "file": "routes/acting.tsx",
+                "path": "acting"
+              },
+              {
+                "file": "routes/acting-slug.tsx",
+                "path": "acting/:slug"
+              },
+              {
+                "file": "routes/art.tsx",
+                "path": "art"
+              },
+              {
+                "file": "routes/art-slug.tsx",
+                "path": "art/:slug"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "viteConfig": {
+    "build": {
+      "assetsDir": "assets"
+    }
+  }
+}
