@@ -10,6 +10,7 @@ export interface MediaGalleryProps {
   className?: string;
   columns?: {
     base?: number;
+    xs?: number;
     sm?: number;
     md?: number;
     lg?: number;
@@ -42,10 +43,11 @@ export default function MediaGallery({ items, className, columns }: MediaGallery
   }, []);
   
   const baseCols = colClass(columns?.base ?? 1);
-  const smCols = columns?.sm ? `sm:${colClass(columns.sm)}` : "";
-  const mdCols = columns?.md ? `md:${colClass(columns.md)}` : "md:grid-cols-2"; // sensible default
-  const lgCols = columns?.lg ? `lg:${colClass(columns.lg)}` : "lg:grid-cols-3";
-  const xlCols = columns?.xl ? `xl:${colClass(columns.xl)}` : "xl:grid-cols-4";
+  const xsCols = columns?.xs ? `xs:${colClass(columns.xs)}` : "xs:grid-cols-2";
+  const smCols = columns?.sm ? `sm:${colClass(columns.sm)}` : "sm:grid-cols-2";
+  const mdCols = columns?.md ? `md:${colClass(columns.md)}` : "md:grid-cols-3";
+  const lgCols = columns?.lg ? `lg:${colClass(columns.lg)}` : "lg:grid-cols-4";
+  const xlCols = columns?.xl ? `xl:${colClass(columns.xl)}` : "xl:grid-cols-5";
 
   // Lightbox content ref to enable outside-click dismissal
   const contentRef = useRef<HTMLDivElement>(null);
@@ -66,13 +68,13 @@ export default function MediaGallery({ items, className, columns }: MediaGallery
       {items.map((item, idx) => (
         <figure
           key={idx}
-          className="relative flex items-center justify-center overflow-hidden rounded-2xl aspect-square bg-black cursor-pointer"
+          className="relative overflow-hidden rounded-2xl aspect-square bg-black cursor-pointer [&_img]:w-full [&_img]:h-full [&_img]:object-cover"
           onClick={() => setActiveIndex(idx)}
         >
           <Image
             src={item}
             alt="Image"
-            className="w-full h-full object-cover"
+            className="w-full h-full"
             loading="lazy"
           />
         </figure>

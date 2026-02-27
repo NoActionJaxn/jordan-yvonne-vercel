@@ -6,4 +6,6 @@
   --font-cursive: 'Grand Hotel', 'Brush Script MT', cursive;
 
   --default-font-family: var(--font-sans);
+
+  --breakpoint-xs: 480px;
 }

@@ -23,7 +23,7 @@ export default function CostumeItemPage() {
   } = useLoaderData<LoaderData>();
 
   const seo = mergeSeo(rootSeo, costumeSeo, page?.seo);
-  console.log(page);
+
   return (
     <>
       <Head siteTitle={settings?.title} pageTitle={page?.title} seo={seo} />
