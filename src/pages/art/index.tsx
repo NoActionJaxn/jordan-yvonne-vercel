@@ -3,7 +3,7 @@ import Head from "../../components/shared/Head";
 import BlockRenderer from "../../components/shared/BlockRenderer";
 import { Heading } from "../../components/ui/Typeography";
 import MansoryLayout from "../../components/shared/MansoryLayout";
-import ArtCard from "../../components/art/ArtCard";
+import ProjectCard from "../../components/shared/ProjectCard";
 import useSetPageCountParam from "../../hooks/useSetPageCountParam";
 import ScrollStatus from "../../components/shared/ScrollStatus";
 import { mergeSeo } from "../../lib/util/mergeSeo";
@@ -34,6 +34,7 @@ export default function ArtPage() {
   const seo = mergeSeo(rootSeo, page?.seo);
 
   const items = (illustrations ?? []).map((illustration) => ({
+    basePath: "/art",
     date: illustration?._publishedAt,
     title: illustration?.title,
     slug: illustration?.slug.current,
@@ -65,7 +66,7 @@ export default function ArtPage() {
           </aside>
           <div className="col-span-3 lg:col-span-2">
             <MansoryLayout
-              Component={ArtCard}
+              Component={ProjectCard}
               data={items}
               keyExtractor={(it) => it.slug}
               isLoading={isRefetching}

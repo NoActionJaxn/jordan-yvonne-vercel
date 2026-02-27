@@ -5,7 +5,8 @@ import { portableTextToText } from "../../lib/util/portableTextToText";
 import type { PortableTextBlock } from "@portabletext/react";
 import type { SanityImageSource } from "@sanity/image-url";
 
-interface ArtCardProps {
+export interface ProjectCardProps {
+  basePath: string;
   date?: string;
   title: string;
   slug: string;
@@ -14,17 +15,18 @@ interface ArtCardProps {
   descText?: PortableTextBlock[];
 }
 
-export default function ArtCard({
+export default function ProjectCard({
+  basePath,
   date,
   title,
   slug,
   thumb,
   alt,
   descText,
-}: ArtCardProps) {
+}: ProjectCardProps) {
   return (
     <Link
-      to={{ pathname: `/acting/${slug}` }}
+      to={{ pathname: `${basePath}/${slug}` }}
       className="group block rounded-2xl transition-shadow"
     >
       {date && (
@@ -38,7 +40,7 @@ export default function ArtCard({
             <Image
               src={thumb}
               alt={alt || title}
-              className="aspect-3/4 w-full h-auto bg-black rounded-t-2xl"
+              className="w-full rounded-t-2xl"
             />
           ) : (
             <div className="w-full aspect-3/4 bg-gray-200 rounded-t-2xl flex items-center justify-center">

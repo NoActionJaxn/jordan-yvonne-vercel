@@ -3,7 +3,7 @@ import Head from "../../components/shared/Head";
 import BlockRenderer from "../../components/shared/BlockRenderer";
 import { Heading } from "../../components/ui/Typeography";
 import MansoryLayout from "../../components/shared/MansoryLayout";
-import ActingCard from "../../components/acting/ActingCard";
+import ProjectCard from "../../components/shared/ProjectCard";
 import DownloadButton from "../../components/shared/DownloadButton";
 import useSetPageCountParam from "../../hooks/useSetPageCountParam";
 import ScrollStatus from "../../components/shared/ScrollStatus";
@@ -35,6 +35,7 @@ export default function ActingPageComponent() {
   const seo = mergeSeo(rootSeo, page?.seo);
 
   const items = (actors ?? []).map((actor) => ({
+    basePath: "/acting",
     date: actor?._publishedAt,
     title: actor?.title,
     slug: actor?.slug.current,
@@ -73,7 +74,7 @@ export default function ActingPageComponent() {
           </aside>
           <div className="col-span-3 lg:col-span-2">
             <MansoryLayout
-              Component={ActingCard}
+              Component={ProjectCard}
               data={items}
               keyExtractor={(it) => it.slug}
               isLoading={isRefetching}

@@ -1,7 +1,7 @@
 import { useLoaderData, useRevalidator } from "react-router";
 import Head from "../../components/shared/Head";
 import BlockRenderer from "../../components/shared/BlockRenderer";
-import CostumingCard from "../../components/costumes/CostumingCard";
+import ProjectCard from "../../components/shared/ProjectCard";
 import MansoryLayout from "../../components/shared/MansoryLayout";
 import DownloadButton from "../../components/shared/DownloadButton";
 import useSetPageCountParam from "../../hooks/useSetPageCountParam";
@@ -35,6 +35,7 @@ export default function CostumingPage() {
   const seo = mergeSeo(rootSeo, page?.seo);
 
   const items = (costumes ?? []).map((costume) => ({
+    basePath: "/costuming",
     date: costume?._publishedAt,
     title: costume?.title,
     slug: costume?.slug.current,
@@ -73,7 +74,7 @@ export default function CostumingPage() {
           </aside>
           <div className="col-span-3 lg:col-span-2">
             <MansoryLayout
-              Component={CostumingCard}
+              Component={ProjectCard}
               data={items}
               keyExtractor={(it) => it.slug}
               isLoading={isRefetching}
