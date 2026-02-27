@@ -95,13 +95,19 @@ export default function ActingPageComponent() {
           </div>
         </aside>
         <div className="col-span-3 lg:col-span-2">
-          <MansoryLayout
-            Component={ProjectCard}
-            data={items}
-            keyExtractor={(it) => it.slug}
-            isLoading={isRefetching}
-          />
-          <ScrollStatus isLoadingMore={isLoadingMore} hasMore={hasMore} />
+          {items.length === 0 && !isRefetching ? (
+            <p className="text-center text-gray-500 py-20">No posts available.</p>
+          ) : (
+            <>
+              <MansoryLayout
+                Component={ProjectCard}
+                data={items}
+                keyExtractor={(it) => it.slug}
+                isLoading={isRefetching}
+              />
+              <ScrollStatus isLoadingMore={isLoadingMore} hasMore={hasMore} />
+            </>
+          )}
         </div>
       </div>
     </div>
