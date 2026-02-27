@@ -5,6 +5,7 @@ import CostumingCard from "../../components/costumes/CostumingCard";
 import MansoryLayout from "../../components/shared/MansoryLayout";
 import DownloadButton from "../../components/shared/DownloadButton";
 import useSetPageCountParam from "../../hooks/useSetPageCountParam";
+import ScrollStatus from "../../components/shared/ScrollStatus";
 import { Heading } from "../../components/ui/Typeography";
 import { mergeSeo } from "../../lib/util/mergeSeo";
 import type { SiteSettings, CostumePage, Costume } from "../../types/requests";
@@ -42,7 +43,7 @@ export default function CostumingPage() {
     descText: costume?.description,
   }));
 
-  useSetPageCountParam({ max: totalCostumes, limit: 5 });
+  const { isLoadingMore, hasMore } = useSetPageCountParam({ max: totalCostumes, limit: 5, loading: isRefetching });
 
   return (
     <>
@@ -77,6 +78,7 @@ export default function CostumingPage() {
               keyExtractor={(it) => it.slug}
               isLoading={isRefetching}
             />
+            <ScrollStatus isLoadingMore={isLoadingMore} hasMore={hasMore} />
           </div>
         </div>
       </div>

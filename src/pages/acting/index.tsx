@@ -6,6 +6,7 @@ import MansoryLayout from "../../components/shared/MansoryLayout";
 import ActingCard from "../../components/acting/ActingCard";
 import DownloadButton from "../../components/shared/DownloadButton";
 import useSetPageCountParam from "../../hooks/useSetPageCountParam";
+import ScrollStatus from "../../components/shared/ScrollStatus";
 import { mergeSeo } from "../../lib/util/mergeSeo";
 import type { SiteSettings, ActingPage, Actor } from "../../types/requests";
 import type { SanitySEO } from "../../types/sanity";
@@ -42,7 +43,7 @@ export default function ActingPageComponent() {
     descText: actor?.description,
   }));
 
-  useSetPageCountParam({ max: totalActors, limit: 5 });
+  const { isLoadingMore, hasMore } = useSetPageCountParam({ max: totalActors, limit: 5, loading: isRefetching });
 
   return (
     <>
@@ -77,6 +78,7 @@ export default function ActingPageComponent() {
               keyExtractor={(it) => it.slug}
               isLoading={isRefetching}
             />
+            <ScrollStatus isLoadingMore={isLoadingMore} hasMore={hasMore} />
           </div>
         </div>
       </div>

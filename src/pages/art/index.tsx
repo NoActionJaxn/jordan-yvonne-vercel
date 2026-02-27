@@ -5,6 +5,7 @@ import { Heading } from "../../components/ui/Typeography";
 import MansoryLayout from "../../components/shared/MansoryLayout";
 import ArtCard from "../../components/art/ArtCard";
 import useSetPageCountParam from "../../hooks/useSetPageCountParam";
+import ScrollStatus from "../../components/shared/ScrollStatus";
 import { mergeSeo } from "../../lib/util/mergeSeo";
 import type { SiteSettings, IllustrationPage, Illustration } from "../../types/requests";
 import type { SanitySEO } from "../../types/sanity";
@@ -41,7 +42,7 @@ export default function ArtPage() {
     descText: illustration?.description,
   }));
 
-  useSetPageCountParam({ max: totalIllustrations, limit: 5 });
+  const { isLoadingMore, hasMore } = useSetPageCountParam({ max: totalIllustrations, limit: 5, loading: isRefetching });
 
   return (
     <>
@@ -69,6 +70,7 @@ export default function ArtPage() {
               keyExtractor={(it) => it.slug}
               isLoading={isRefetching}
             />
+            <ScrollStatus isLoadingMore={isLoadingMore} hasMore={hasMore} />
           </div>
         </div>
       </div>

@@ -5,9 +5,15 @@ import debounce from "lodash.debounce";
 export interface UseScrollingPageSizeProps {
   max: number;
   limit: number;
+  loading?: boolean;
 }
 
-export default function useSetPageCountParam({ max, limit }: UseScrollingPageSizeProps) {
+export interface UseScrollingPageSizeReturn {
+  isLoadingMore: boolean;
+  hasMore: boolean;
+}
+
+export default function useSetPageCountParam({ max, limit, loading = false }: UseScrollingPageSizeProps): UseScrollingPageSizeReturn {
   const [searchParams, setSearchParams] = useSearchParams();
 
   // Keep a stable ref so effects don't re-trigger when the reference changes
@@ -15,24 +21,23 @@ export default function useSetPageCountParam({ max, limit }: UseScrollingPageSiz
   setSearchParamsRef.current = setSearchParams;
 
   const page = Number(searchParams.get("page") ?? 1);
+  const hasMore = (limit * page) < max;
 
   const handleScroll = useCallback(() => {
+    if (loading) return;
+
     const scrollPos = window.innerHeight + window.scrollY;
     const bottom = document.documentElement.scrollHeight - 50;
 
-    if (scrollPos >= bottom) {
-      const hasMore = (limit * page) < max;
-
-      if (hasMore) {
-        const next = page + 1;
-        setSearchParamsRef.current((prev) => {
-          const updated = new URLSearchParams(prev);
-          updated.set("page", String(next));
-          return updated;
-        }, { replace: true });
-      }
+    if (scrollPos >= bottom && hasMore) {
+      const next = page + 1;
+      setSearchParamsRef.current((prev) => {
+        const updated = new URLSearchParams(prev);
+        updated.set("page", String(next));
+        return updated;
+      }, { replace: true });
     }
-  }, [page, max, limit]);
+  }, [page, hasMore, loading]);
 
   const debouncedHandleScroll = useMemo(() => debounce(handleScroll, 200), [handleScroll]);
 
@@ -59,4 +64,9 @@ export default function useSetPageCountParam({ max, limit }: UseScrollingPageSiz
       debouncedHandleScroll.cancel?.();
     };
   }, [debouncedHandleScroll]);
+
+  return {
+    isLoadingMore: loading && page > 1,
+    hasMore,
+  };
 }
