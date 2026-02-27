@@ -6,9 +6,7 @@ import ProjectCard from "../../src/components/shared/ProjectCard";
 import DownloadButton from "../../src/components/shared/DownloadButton";
 import ScrollStatus from "../../src/components/shared/ScrollStatus";
 import useSetPageCountParam from "../../src/hooks/useSetPageCountParam";
-import { mergeSeo } from "../../src/lib/util/mergeSeo";
-import { titleBuilder } from "../../src/lib/titleBuilder";
-import { imageBuilder } from "../../src/lib/util/imageBuilder";
+import { buildMetaTags, getParentMeta, getLayoutData } from "../lib/seo";
 import {
   fetchDefaultSEO,
   fetchActingPage,
@@ -39,27 +37,15 @@ export async function loader({ request }: { request: Request }) {
   return { rootSeo, page, actors, totalActors, settings };
 }
 
-export function meta({ data }: { data: LoaderData }) {
-  const seo = mergeSeo(data?.rootSeo, data?.page?.seo);
-  const title = titleBuilder({
+export function meta({ data, matches }: { data: LoaderData; matches: Array<{ meta?: Record<string, string>[]; data?: unknown }> }) {
+  const layoutData = getLayoutData(matches);
+  return buildMetaTags({
     siteTitle: data?.settings?.title,
     pageTitle: data?.page?.pageTitle,
+    seoSources: [data?.rootSeo, data?.page?.seo],
+    favicon: layoutData.settings?.favicon,
+    parentMeta: getParentMeta(matches),
   });
-
-  const tags: Array<Record<string, string>> = [{ title }];
-  if (seo?.metaDescription) {
-    tags.push({ name: "description", content: seo.metaDescription });
-    tags.push({ property: "og:description", content: seo.metaDescription });
-  }
-  if (seo?.metaImage) {
-    try {
-      const imgUrl = imageBuilder(seo.metaImage).url();
-      tags.push({ property: "og:image", content: imgUrl });
-    } catch { /* ignore */ }
-  }
-  tags.push({ name: "twitter:card", content: "summary_large_image" });
-
-  return tags;
 }
 
 export default function ActingPageComponent() {

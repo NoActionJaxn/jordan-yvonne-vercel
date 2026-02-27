@@ -12,6 +12,7 @@ import { Heading, Paragraph } from "../src/components/ui/Typeography";
 import "../src/styles/globals.css";
 
 export const links: Route.LinksFunction = () => [
+  { rel: "icon", type: "image/svg+xml", href: "/jordan-yvonne.svg" },
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
   {
     rel: "preconnect",

@@ -4,14 +4,13 @@ import { AnimatePresence, motion } from "motion/react";
 import classNames from "classnames";
 import PageHeader from "../../src/components/shared/PageHeader";
 import PageFooter from "../../src/components/shared/PageFooter";
+import { buildMetaTags } from "../lib/seo";
 import {
   fetchDefaultSEO,
   fetchMenuItems,
   fetchSiteSettings,
   fetchSocialLinks,
 } from "../../src/lib/requests";
-import { titleBuilder } from "../../src/lib/titleBuilder";
-import { imageBuilder } from "../../src/lib/util/imageBuilder";
 import type { SanityCallToAction, SanitySEO } from "../../src/types/sanity";
 import type { SiteSettings } from "../../src/types/requests";
 
@@ -38,37 +37,11 @@ export async function loader() {
 }
 
 export function meta({ data }: { data: LoaderData }) {
-  const seo = data?.seo;
-  const settings = data?.settings;
-  const title = titleBuilder({ siteTitle: settings?.title });
-
-  const tags: Array<Record<string, string>> = [{ title }];
-
-  if (seo?.metaCharset) tags.push({ name: "charset", content: seo.metaCharset });
-  if (seo?.metaDescription) tags.push({ name: "description", content: seo.metaDescription });
-  if (seo?.metaKeywords?.length) tags.push({ name: "keywords", content: seo.metaKeywords.join(", ") });
-  if (seo?.metaAuthor) tags.push({ name: "author", content: seo.metaAuthor });
-  if (seo?.metaRobots) tags.push({ name: "robots", content: seo.metaRobots });
-
-  if (settings?.favicon) {
-    try {
-      const faviconUrl = imageBuilder(settings.favicon).url();
-      tags.push({ tagName: "link", rel: "icon", type: "image/svg+xml", href: faviconUrl });
-    } catch { /* ignore */ }
-  }
-
-  return tags;
-}
-
-export function links({ data }: { data: LoaderData }) {
-  const linkTags: Array<Record<string, string>> = [];
-  const seo = data?.seo;
-
-  if (seo?.canonicalURL) {
-    linkTags.push({ rel: "canonical", href: seo.canonicalURL });
-  }
-
-  return linkTags;
+  return buildMetaTags({
+    siteTitle: data?.settings?.title,
+    seoSources: [data?.seo],
+    favicon: data?.settings?.favicon,
+  });
 }
 
 export default function LayoutRoute() {
