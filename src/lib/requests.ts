@@ -49,10 +49,10 @@ export async function fetchCostumePage() {
   return await client.fetch<CostumePage>(COSTUME_PAGE_QUERY).catch(handleRequestError);
 }
 
-export async function fetchCostumes() {
-  const url = new URLSearchParams(window.location.search);
-  const page = Math.max(1, Number(url?.get("page") ?? "1"));
-  const limit = Math.max(1, Number(url?.get("limit") ?? "5"))
+export async function fetchCostumes(request: Request) {
+  const url = new URL(request.url);
+  const page = Math.max(1, Number(url.searchParams.get("page") ?? "1"));
+  const limit = Math.max(1, Number(url.searchParams.get("limit") ?? "5"))
 
   return await client.fetch<Costume[]>(COSTUMES_QUERY, { limit: page * limit }).catch(handleRequestError);
 }
@@ -74,10 +74,10 @@ export async function fetchActingPage() {
   return await client.fetch<ActingPage>(ACTING_PAGE_QUERY).catch(handleRequestError);
 }
 
-export async function fetchActors() {
-  const url = new URLSearchParams(window.location.search);
-  const page = Math.max(1, Number(url?.get("page") ?? "1"));
-  const limit = Math.max(1, Number(url?.get("limit") ?? "5"));
+export async function fetchActors(request: Request) {
+  const url = new URL(request.url);
+  const page = Math.max(1, Number(url.searchParams.get("page") ?? "1"));
+  const limit = Math.max(1, Number(url.searchParams.get("limit") ?? "5"));
 
   return await client.fetch<Actor[]>(ACTORS_QUERY, { limit: page * limit }).catch(handleRequestError);
 }
@@ -99,10 +99,10 @@ export async function fetchIllustrationPage() {
   return await client.fetch<IllustrationPage>(ILLUSTRATION_PAGE_QUERY).catch(handleRequestError);
 }
 
-export async function fetchIllustrations() {
-  const url = new URLSearchParams(window.location.search);
-  const page = Math.max(1, Number(url?.get("page") ?? "1"));
-  const limit = Math.max(1, Number(url?.get("limit") ?? "5"));
+export async function fetchIllustrations(request: Request) {
+  const url = new URL(request.url);
+  const page = Math.max(1, Number(url.searchParams.get("page") ?? "1"));
+  const limit = Math.max(1, Number(url.searchParams.get("limit") ?? "5"));
 
   return await client.fetch<Illustration[]>(ILLUSTRATIONS_QUERY, { limit: page * limit }).catch(handleRequestError);
 }

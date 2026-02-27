@@ -3,19 +3,27 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "engines": {
+    "node": ">=18.0.0"
+  },
   "scripts": {
-    "dev": "vite",
-    "build": "tsc -b && vite build",
+    "dev": "react-router dev",
+    "build": "react-router build",
+    "start": "react-router-serve ./build/server/index.js",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "typecheck": "react-router typegen && tsc -b"
   },
   "dependencies": {
-    "@dr.pogodin/react-helmet": "^3.0.4",
     "@portabletext/react": "^6.0.0",
+    "@react-router/dev": "^7.13.1",
+    "@react-router/node": "^7.13.1",
+    "@react-router/serve": "^7.13.1",
     "@sanity/client": "^7.13.2",
     "@sanity/image-url": "^2.0.2",
     "@tailwindcss/vite": "^4.1.17",
+    "@vercel/react-router": "^1.2.5",
     "classnames": "^2.5.1",
+    "isbot": "^5.1.35",
     "lodash.debounce": "^4.0.8",
     "motion": "^12.23.25",
     "react": "^19.2.0",
@@ -30,7 +38,6 @@
     "@types/node": "^24.10.1",
     "@types/react": "^19.2.5",
     "@types/react-dom": "^19.2.3",
-    "@vitejs/plugin-react": "^5.1.1",
     "eslint": "^9.39.1",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-react-hooks": "^7.0.1",
