@@ -43,7 +43,6 @@ export default function MediaGallery({ items, className, columns }: MediaGallery
   }, []);
   
   const baseCols = colClass(columns?.base ?? 1);
-  const xsCols = columns?.xs ? `xs:${colClass(columns.xs)}` : "xs:grid-cols-2";
   const smCols = columns?.sm ? `sm:${colClass(columns.sm)}` : "sm:grid-cols-2";
   const mdCols = columns?.md ? `md:${colClass(columns.md)}` : "md:grid-cols-3";
   const lgCols = columns?.lg ? `lg:${colClass(columns.lg)}` : "lg:grid-cols-4";
