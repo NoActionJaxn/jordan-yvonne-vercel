@@ -1,4 +1,4 @@
-import { useLoaderData, useRevalidator } from "react-router";
+import { useLoaderData, useNavigation } from "react-router";
 import Head from "../../components/shared/Head";
 import BlockRenderer from "../../components/shared/BlockRenderer";
 import ProjectCard from "../../components/shared/ProjectCard";
@@ -28,9 +28,9 @@ export default function CostumingPage() {
     page,
   } = useLoaderData<LoaderData>();
 
-  const { state: revalidatorState } = useRevalidator();
+  const { state: navigationState } = useNavigation();
 
-  const isRefetching = revalidatorState === "loading";
+  const isRefetching = navigationState === "loading";
 
   const seo = mergeSeo(rootSeo, page?.seo);
 
@@ -51,7 +51,7 @@ export default function CostumingPage() {
       <Head siteTitle={settings?.title} pageTitle={page?.pageTitle} seo={seo} />
       <div className="px-16">
         <div className="grid grid-cols-3 gap-10">
-          <aside className="grid grid-cols-3 col-span-3 lg:col-span-1 lg:sticky  space-y-5 relative top-20 self-start">
+          <aside className="grid grid-cols-3 col-span-3 lg:col-span-1 lg:sticky space-y-5 top-20 self-start">
             <div className="col-span-3 md:col-span-2 lg:col-span-3 space-y-5">
               {page && (
                 <div>
