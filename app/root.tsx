@@ -36,7 +36,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
       </head>
       <body className="bg-amber-50">
         {children}
-        <ScrollRestoration />
+        <ScrollRestoration getKey={(location) => location.pathname} />
         <Scripts />
         <script
           src="https://kit.fontawesome.com/1aad4926f4.js"

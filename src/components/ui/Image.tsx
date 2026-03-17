@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { imageBuilder } from "../../lib/util/imageBuilder";
 import Spinner from "./Spinner";
 import type { SanityImageSource } from "@sanity/image-url";
@@ -37,11 +37,21 @@ export default function Image({ src, alt = '', className, loading = "lazy", widt
   const url = resolveImageUrl(src, width, height, quality);
   const [loaded, setLoaded] = useState(false);
   const [errored, setErrored] = useState(false);
+  const imgRef = useRef<HTMLImageElement>(null);
+  const prevUrlRef = useRef(url);
 
-  // Reset state when the source URL changes
-  useEffect(() => {
+  // Reset state inline during render when URL changes (avoids effect race condition)
+  if (prevUrlRef.current !== url) {
+    prevUrlRef.current = url;
     setLoaded(false);
     setErrored(false);
+  }
+
+  // Handle cached images whose onLoad may not fire
+  useEffect(() => {
+    if (imgRef.current?.complete && imgRef.current.naturalWidth > 0) {
+      setLoaded(true);
+    }
   }, [url]);
 
   if (!url || errored) return null;
@@ -54,6 +64,7 @@ export default function Image({ src, alt = '', className, loading = "lazy", widt
         </div>
       )}
       <img
+        ref={imgRef}
         src={url}
         alt={alt}
         className={classNames("w-full h-auto object-cover transition-opacity duration-300", loaded ? "opacity-100" : "opacity-0")}
